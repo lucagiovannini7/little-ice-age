@@ -468,7 +468,8 @@ function formatYear(y) {
   return mo > 1 ? `${yr}-${String(mo).padStart(2,'0')}` : String(yr);
 }
 function matchWeather(sermon) {
-  const p = (sermon.place_of_print || '').toLowerCase().trim();
+  // Strip editorial brackets e.g. "[Augsburg]" → "augsburg" before comparing
+  const p = (sermon.place_of_print || '').replace(/[\[\]]/g, '').toLowerCase().trim();
   return WEATHER.filter(w => w.city.toLowerCase().trim() === p);
 }
 function pseudoRand(seed) { return Math.abs(Math.sin(seed * 127.1 + 31.41) * 43758.5453) % 1; }

@@ -2,67 +2,125 @@
 """
 build_phenomena.py
 ------------------
-Reads  json/results.csv  (FILENAME, PHENOMENON)
-Looks up the slug field in each matching JSON file
-Writes sermon-phenomena.csv  (SLUG, FILENAME, PHENOMENON)  in the repo root
-Writes phenomena_data.js     (const PHENOMENA = { slug: [...], ... })
+STAGE 2 of the data pipeline (phenomena branch).
+Reads   json/*.json          (slug + text fields)
+Writes  metadata/sermon-phenomena.csv  (SLUG, FILENAME, PHENOMENON)
+Writes  phenomena_data.js              (const PHENOMENA = {slug: [...], ...})
+
+No intermediate results.csv required — extraction is done inline.
+
+Run from repo root:  python scripts/build_phenomena.py
 """
 
 import csv
 import json
 import os
+import re
 
 JSON_DIR   = 'json'
-INPUT_CSV  = os.path.join(JSON_DIR, 'results.csv')
-OUTPUT_CSV = 'sermon-phenomena.csv'
+OUTPUT_CSV = 'metadata/sermon-phenomena.csv'
 OUTPUT_JS  = 'phenomena_data.js'
 
-# ── 1. Build filename → slug map from all JSON files ──────────────────────────
-filename_to_slug = {}
-for fname in os.listdir(JSON_DIR):
-    if not fname.endswith('.json'):
-        continue
+# ─────────────────────────────────────────────────────────────────────────────
+# Weather / phenomenon term dictionary
+# Each key is the canonical label; value is a list of spelling variants.
+# Search is case-insensitive, whole-word (word boundaries).
+# ─────────────────────────────────────────────────────────────────────────────
+WEATHER_TERMS = {
+    "Wetter":                      ["Wetter"],
+    "Witterung/Gewitter":          ["Witterung", "Gewitter", "Witter"],
+    "Meteor/Meteorologie":         ["Meteor", "Meteorologie"],
+    "Wind":                        ["Wind"],
+    "Finsternuß/Finsternis":       ["Finsternuß", "Finsternis"],
+    "Winter":                      ["Winter", "Wintr"],
+    "Regen/Blutregen/Regenbogen":  ["Regen", "Blutregen", "Regenbogen", "Regn"],
+    "Nebel":                       ["Nebel"],
+    "Komet/Comet":                 ["Komet", "Comet"],
+    "Frost":                       ["Frost"],
+    "Kälte":                       ["Kaelt", "Kält", "Kaelte", "Kälte"],
+    "Schnee":                      ["Schnee"],
+    "Eis":                         ["Eis"],
+    "Dürre":                       ["Dürre", "Durre"],
+    "Trockenheit":                 ["Trock", "Trocknung", "Trockenheit"],
+    "Hagel":                       ["Hagel"],
+    "Hitze":                       ["Hitze"],
+    "Sturm":                       ["Sturm"],
+    "Feuchte":                     ["Feuchte"],
+    "Niederschlag":                ["Niederschlag"],
+    "Dampf":                       ["Dampf"],
+    "Exhalationes":                ["Exhalationes"],
+    "Dunkst":                      ["Dunkst"],
+    "Vapor":                       ["Vapor"],
+    "Flut":                        ["Flut"],
+    "Sommer":                      ["Sommer"],
+    "Herbst":                      ["Herbst"],
+    "Frühling/Frühjahr/Lenz":      ["Frühling", "Fruehling", "Frühjahr", "Fruehjahr", "Lenz"],
+    "kalt":                        ["kalt"],
+    "heiß":                        ["heiß", "heiss"],
+    "Schlossen/Schloßen":          ["Schlossen", "Schloßen"],
+    "Wasser":                      ["Wasser"],
+    "Sonne":                       ["Sonne"],
+    "Verdunkelung/Dunkelheit":     ["Verdunkelung", "Dunkelheit"],
+    "Wolke":                       ["Wolke"],
+}
+
+# Pre-compile one regex per canonical term
+COMPILED_TERMS = {
+    label: re.compile(
+        r'\b(' + '|'.join(re.escape(v) for v in variants) + r')\b',
+        re.IGNORECASE
+    )
+    for label, variants in WEATHER_TERMS.items()
+}
+
+
+def find_phenomena(text: str) -> list:
+    """Return sorted list of canonical labels found in text."""
+    return [label for label, pat in COMPILED_TERMS.items() if pat.search(text)]
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Main
+# ─────────────────────────────────────────────────────────────────────────────
+rows          = []
+phenomena_map = {}   # slug → [phenomena list]
+
+json_files = sorted(f for f in os.listdir(JSON_DIR) if f.endswith('.json'))
+
+for fname in json_files:
     path = os.path.join(JSON_DIR, fname)
     try:
-        with open(path, encoding='utf-8') as fh:
-            data = json.load(fh)
-        slug = data.get('slug', '').strip()
-        if slug:
-            filename_to_slug[fname] = slug
+        data = json.loads(open(path, encoding='utf-8').read())
     except Exception as exc:
         print(f'  [warn] could not read {fname}: {exc}')
+        continue
 
-print(f'Loaded slugs for {len(filename_to_slug)} JSON files')
+    slug = data.get('slug', '').strip()
+    text = data.get('text', '')
 
-# ── 2. Read results.csv and enrich with slug ───────────────────────────────────
-rows = []
-missing = set()
-with open(INPUT_CSV, encoding='utf-8', newline='') as fh:
-    for row in csv.DictReader(fh):
-        fname    = row['FILENAME'].strip()
-        slug     = filename_to_slug.get(fname, '')
-        if not slug:
-            missing.add(fname)
-        rows.append({'SLUG': slug, 'FILENAME': fname, 'PHENOMENON': row['PHENOMENON'].strip()})
+    if not slug:
+        print(f'  [warn] no slug in {fname}')
+        continue
+    if not text:
+        continue
 
-if missing:
-    print(f'  [warn] no slug found for: {", ".join(sorted(missing))}')
+    phenomena = find_phenomena(text)
+    print(f'{fname}: {len(phenomena)} phenomenon/a')
 
-# ── 3. Write sermon-phenomena.csv ─────────────────────────────────────────────
+    for ph in phenomena:
+        rows.append({'SLUG': slug, 'FILENAME': fname, 'PHENOMENON': ph})
+    if phenomena:
+        phenomena_map[slug] = phenomena
+
+# ── Write sermon-phenomena.csv ────────────────────────────────────────────────
+os.makedirs('metadata', exist_ok=True)
 with open(OUTPUT_CSV, 'w', encoding='utf-8', newline='') as fh:
     writer = csv.DictWriter(fh, fieldnames=['SLUG', 'FILENAME', 'PHENOMENON'])
     writer.writeheader()
     writer.writerows(rows)
-print(f'Written {len(rows)} rows -> {OUTPUT_CSV}')
+print(f'\nWritten {len(rows)} rows -> {OUTPUT_CSV}')
 
-# ── 4. Build slug → [phenomena] map ───────────────────────────────────────────
-phenomena_map = {}
-for row in rows:
-    slug = row['SLUG']
-    if slug:
-        phenomena_map.setdefault(slug, []).append(row['PHENOMENON'])
-
-# ── 5. Write phenomena_data.js ────────────────────────────────────────────────
+# ── Write phenomena_data.js ───────────────────────────────────────────────────
 with open(OUTPUT_JS, 'w', encoding='utf-8') as fh:
     fh.write('// Auto-generated by build_phenomena.py — do not edit manually\n')
     fh.write('const PHENOMENA = ')

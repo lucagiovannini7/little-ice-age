@@ -2,26 +2,24 @@
 """
 extract_bible_citations.py
 --------------------------
-Extracts Bible references from the 'text' field of every JSON in json/.
+STAGE 2 of the data pipeline (Bible citations branch).
+Reads   json/*.json          (slug + text fields)
+Writes  metadata/bible-citations.csv   (SLUG, BIBLE CITATION, STANDARDISED CITATION,
+                                         BOOK_EN, CHAPTER, VERSE, URL)
+Writes  metadata/gephi-edges.csv       (Source, Target — bipartite edge list for Gephi)
+
 Handles Early New High German (Frühneuhochdeutsch) orthographic variants,
 including Roman-numeral chapter numbers.
 
-Output columns:
-  SLUG | BIBLE CITATION | BOOK_EN | CHAPTER | VERSE | URL
-
-BOOK_EN  – slug usable in the wldeh/bible-api, e.g. 'john', '1kings'
-CHAPTER  – Arabic chapter number (Roman numerals converted)
-VERSE    – starting verse if explicitly present in the citation, else blank
-URL      – https://cdn.jsdelivr.net/gh/wldeh/bible-api/bibles/en-kjv/
-              books/{BOOK_EN}/chapters/{CHAPTER}/verses/{VERSE or 1}.json
+Run from repo root:  python scripts/extract_bible_citations.py
 """
 
-import re, json, csv
+import re, json, csv, os
 from pathlib import Path
 
 JSON_DIR   = 'json'
-OUTPUT_CSV = 'bible-citations.csv'
-OUTPUT_TMP = 'bible-citations-new.csv'
+OUTPUT_CSV = 'metadata/bible-citations.csv'
+GEPHI_CSV  = 'metadata/gephi-edges.csv'
 API_BASE_CHAP  = ('https://cdn.jsdelivr.net/gh/wldeh/bible-api'
                   '/bibles/en-kjv/books/{book}/chapters/{ch}.json')
 API_BASE_VERSE = ('https://cdn.jsdelivr.net/gh/wldeh/bible-api'
@@ -383,23 +381,15 @@ for path in json_files:
             'URL':                   url,
         })
 
-import os, shutil
+os.makedirs('metadata', exist_ok=True)
+
+# ── Write bible-citations.csv ─────────────────────────────────────────────────
 FIELDS = ['SLUG', 'BIBLE CITATION', 'STANDARDISED CITATION', 'BOOK_EN', 'CHAPTER', 'VERSE', 'URL']
-with open(OUTPUT_TMP, 'w', encoding='utf-8', newline='') as fh:
+with open(OUTPUT_CSV, 'w', encoding='utf-8', newline='') as fh:
     writer = csv.DictWriter(fh, fieldnames=FIELDS)
     writer.writeheader()
     writer.writerows(rows)
-# Replace original (works even if OUTPUT_CSV is locked by another process on write)
-try:
-    if os.path.exists(OUTPUT_CSV):
-        os.replace(OUTPUT_TMP, OUTPUT_CSV)
-    else:
-        shutil.move(OUTPUT_TMP, OUTPUT_CSV)
-    out_name = OUTPUT_CSV
-except PermissionError:
-    out_name = OUTPUT_TMP  # leave as -new.csv if original still locked
-
-print(f'\nDone — {len(rows)} citations -> {out_name}')
+print(f'\nDone — {len(rows)} citations -> {OUTPUT_CSV}')
 
 # Quick quality summary
 no_book = sum(1 for r in rows if not r['BOOK_EN'])
@@ -408,3 +398,14 @@ has_ver = sum(1 for r in rows if r['VERSE'])
 print(f'  with book:    {len(rows)-no_book}/{len(rows)}')
 print(f'  with chapter: {len(rows)-no_chap}/{len(rows)}')
 print(f'  with verse:   {has_ver}/{len(rows)}')
+
+# ── Write gephi-edges.csv ─────────────────────────────────────────────────────
+gephi_rows = [
+    {'Source': r['SLUG'], 'Target': r['STANDARDISED CITATION']}
+    for r in rows if r['STANDARDISED CITATION']
+]
+with open(GEPHI_CSV, 'w', encoding='utf-8', newline='') as fh:
+    writer = csv.DictWriter(fh, fieldnames=['Source', 'Target'])
+    writer.writeheader()
+    writer.writerows(gephi_rows)
+print(f'Written {len(gephi_rows)} edges -> {GEPHI_CSV}')

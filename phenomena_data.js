@@ -7,21 +7,25 @@ const PHENOMENA = {
     "Regen/Blutregen/Regenbogen",
     "Dürre",
     "Hagel",
-    "Flut"
+    "Flut",
+    "Wasser"
   ],
   "1565-alber-eine-summa-etlicher": [
     "Witterung/Gewitter",
     "Finsternuß/Finsternis",
     "Schnee",
     "Dürre",
-    "Hagel"
+    "Hagel",
+    "Schlossen/Schloßen",
+    "Wasser"
   ],
   "1566-rorer-eine-predigt-von": [
     "Wetter",
     "Winter",
     "Regen/Blutregen/Regenbogen",
     "Hagel",
-    "Sommer"
+    "Sommer",
+    "Wasser"
   ],
   "1571-lavater-von-thuewre-vn": [
     "Witterung/Gewitter",
@@ -30,13 +34,19 @@ const PHENOMENA = {
     "Frost",
     "Schnee",
     "Dürre",
-    "Hagel"
+    "Hagel",
+    "kalt",
+    "heiß",
+    "Schlossen/Schloßen",
+    "Wasser"
   ],
   "1589-alber-eine-summa-etlicher": [
     "Finsternuß/Finsternis",
     "Regen/Blutregen/Regenbogen",
     "Schnee",
-    "Hagel"
+    "Hagel",
+    "Schlossen/Schloßen",
+    "Wasser"
   ],
   "1599-fabricius-christliche-predigt-von": [
     "Wind",
@@ -58,7 +68,12 @@ const PHENOMENA = {
     "Hagel",
     "Hitze",
     "Flut",
-    "Frühling/Frühjahr/Lenz"
+    "Frühling/Frühjahr/Lenz",
+    "kalt",
+    "heiß",
+    "Schlossen/Schloßen",
+    "Wasser",
+    "Sonne"
   ],
   "1616-titius-eine-christliche-und": [
     "Wetter",
@@ -71,7 +86,10 @@ const PHENOMENA = {
     "Hagel",
     "Hitze",
     "Feuchte",
-    "Sommer"
+    "Sommer",
+    "Schlossen/Schloßen",
+    "Wasser",
+    "Sonne"
   ],
   "1658-tappe-der-mensch-weiss": [
     "Wetter",
@@ -87,7 +105,8 @@ const PHENOMENA = {
     "Hagel",
     "Sturm",
     "Dampf",
-    "Sommer"
+    "Sommer",
+    "Wasser"
   ],
   "1666-wessel-des-himmel-koenigs-wetter-geschuetze": [
     "Wetter",
@@ -101,11 +120,15 @@ const PHENOMENA = {
     "Hitze",
     "Sturm",
     "Dampf",
-    "Sommer"
+    "Sommer",
+    "Schlossen/Schloßen",
+    "Wasser"
   ],
   "1706-cuno-den-schnee-als": [
     "Wetter",
-    "Schnee"
+    "Schnee",
+    "heiß",
+    "Wasser"
   ],
   "1720-pregitzer-das-von-gott": [
     "Wetter",
@@ -121,7 +144,11 @@ const PHENOMENA = {
     "Hitze",
     "Sturm",
     "Flut",
-    "Herbst"
+    "Herbst",
+    "kalt",
+    "Schlossen/Schloßen",
+    "Wasser",
+    "Sonne"
   ],
   "1720-tafinger-der-ausbruch-goettlicher": [
     "Wetter",
@@ -133,7 +160,9 @@ const PHENOMENA = {
     "Dürre",
     "Hagel",
     "Hitze",
-    "Herbst"
+    "Herbst",
+    "Schlossen/Schloßen",
+    "Wasser"
   ],
   "1637-schilling-drey-christliche-thewrung": [
     "Wetter",
@@ -146,7 +175,9 @@ const PHENOMENA = {
     "Dürre",
     "Hagel",
     "Flut",
-    "Sommer"
+    "Sommer",
+    "Wasser",
+    "Sonne"
   ],
   "1639-reinhold-bronteiologike-gehalten-durch": [
     "Wetter",
@@ -158,7 +189,9 @@ const PHENOMENA = {
     "Schnee",
     "Hagel",
     "Sturm",
-    "Flut"
+    "Flut",
+    "Schlossen/Schloßen",
+    "Wasser"
   ],
   "1649-alard-hiobitische-truebsaell-als": [
     "Wetter",
@@ -173,7 +206,10 @@ const PHENOMENA = {
     "Hagel",
     "Hitze",
     "Sturm",
-    "Sommer"
+    "Sommer",
+    "Schlossen/Schloßen",
+    "Wasser",
+    "Sonne"
   ],
   "1705-andreae-gottes-herrliche-heilige": [
     "Wetter",
@@ -183,7 +219,8 @@ const PHENOMENA = {
     "Schnee",
     "Hagel",
     "Hitze",
-    "Sturm"
+    "Sturm",
+    "Wasser"
   ],
   "1705-graefe-gottes-majestaet-und": [
     "Wetter",
@@ -198,7 +235,9 @@ const PHENOMENA = {
     "Hagel",
     "Hitze",
     "Sommer",
-    "Herbst"
+    "Herbst",
+    "Schlossen/Schloßen",
+    "Wasser"
   ],
   "1707-stolle-el-lemoshaot-der": [
     "Wetter",
@@ -210,13 +249,17 @@ const PHENOMENA = {
     "Schnee",
     "Hagel",
     "Hitze",
-    "Sommer"
+    "Sommer",
+    "Schlossen/Schloßen",
+    "Wasser",
+    "Sonne"
   ],
   "1748-knebel-wie-gott-denen": [
     "Wetter",
     "Witterung/Gewitter",
     "Wind",
     "Hagel",
-    "Sturm"
+    "Sturm",
+    "Wasser"
   ]
 };

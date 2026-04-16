@@ -1,4 +1,14 @@
 # -*- coding: utf-8 -*-
+"""
+build_sermons.py
+----------------
+STAGE 1 of the data pipeline.
+Reads  metadata/Predigtensammlung_EcoHack.xlsx  +  txt/*.txt
+Writes json/*.json  (one per sermon, with slug + all metadata + full text)
+Writes data.js      (const SERMONS = [...], loaded by sermon_timeline.html)
+
+Run from repo root:  python scripts/build_sermons.py
+"""
 import pandas as pd, json, re, os, unicodedata, sys, io
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 

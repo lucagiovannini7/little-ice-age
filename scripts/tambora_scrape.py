@@ -39,7 +39,7 @@ MAX_PAGES   = 5      # pages per URL
 SLEEP       = 0.6    # seconds between requests (be polite)
 RETRIES     = 3      # per-request retry attempts
 TIMEOUT     = 20     # seconds
-OUTPUT_FILE = "tambora_scrape.csv"
+OUTPUT_FILE = "metadata/tambora_scrape.csv"
 
 HEADERS = {
     "User-Agent": (
