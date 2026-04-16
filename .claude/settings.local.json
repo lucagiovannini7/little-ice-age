@@ -4,7 +4,28 @@
       "Bash(pip install:*)",
       "Bash(python tambora_scrape.py)",
       "Bash(python -c ':*)",
-      "Bash(xargs grep:*)"
+      "Bash(xargs grep:*)",
+      "Bash(python build_weather_data.py)",
+      "Bash(python3)",
+      "Bash(python extract_bible_citations.py)",
+      "WebFetch(domain:cdn.jsdelivr.net)",
+      "Bash(curl -s \"https://cdn.jsdelivr.net/gh/wldeh/bible-api/bibles/en-kjv/books.json\")",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(curl -s \"https://cdn.jsdelivr.net/gh/wldeh/bible-api/bibles/bibles.json\")",
+      "Bash(curl -s \"https://cdn.jsdelivr.net/gh/wldeh/bible-api@latest/bibles/en-kjv/books.json\")",
+      "Bash(python3 -c \"import sys, json; data = json.load\\(sys.stdin\\); [print\\(book.get\\('slug'\\)\\) for book in data]\")",
+      "Bash(curl -w \"\\\\nStatus: %{http_code}\\\\n\" \"https://cdn.jsdelivr.net/gh/wldeh/bible-api/bibles/en-kjv/books.json\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/wldeh/bible-api/master/bibles/en-kjv/books.json\")",
+      "Bash(python3 -c \"import sys, json; data = json.load\\(sys.stdin\\); print\\('\\\\n'.join\\(book.get\\('slug', 'N/A'\\) for book in data\\)\\)\")",
+      "Bash(curl -s \"https://api.github.com/repos/wldeh/bible-api/contents/bibles/en-kjv\")",
+      "Bash(python3 -c \"import sys, json; data = json.load\\(sys.stdin\\); [print\\(f\\\\\"{item['name']}: {item['type']}\\\\\"\\) for item in data]\")",
+      "Bash(curl -s \"https://api.github.com/repos/wldeh/bible-api/contents/bibles/en-kjv/books\")",
+      "Bash(python3 -c \"import sys, json; data = json.load\\(sys.stdin\\); print\\(f'Found {len\\(data\\)} files'\\); [print\\(item['name']\\) for item in data[:10]]\")",
+      "Bash(curl -s \"https://api.github.com/repos/wldeh/bible-api/contents/bibles/en-kjv/books?per_page=100\")",
+      "Bash(curl -s \"https://api.github.com/repos/wldeh/bible-api/contents/bibles/en-kjv/books/genesis\")",
+      "Bash(python3 -c \"import sys, json; data = json.load\\(sys.stdin\\); [print\\(f\\\\\"{item['name']}\\\\\"\\) for item in data if isinstance\\(item, dict\\)]\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/wldeh/bible-api/main/bibles/en-kjv/books.json\")"
     ]
   }
 }

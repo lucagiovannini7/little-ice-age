@@ -412,19 +412,17 @@ const ICONS = {
   ),
 };
 
-// Coding → icon key
+// Coding → icon key  (matched against weather_data.js 'coding' field, lowercase substring)
 const CODING_MAP = [
-  [['thunderstorm','hail'],                            'lightning'],
-  [['snow','ice','freez','thaw','snowmelt'],            'snow'],
-  [['rain','rainbow','shortterm'],                      'rain'],
-  [['wind'],                                            'wind'],
-  [['flood'],                                           'flood'],
-  [['temperature'],                                     'thermo'],
-  [['cloud','fog','halo'],                              'cloud'],
-  [['grain','harvest','oat','plant','fruit','blossom'], 'wheat'],
-  [['price','kind of goods'],                           'scales'],
-  [['wine','grape'],                                    'grape'],
-  [['longterm'],                                        'fog'],
+  [['thunderstorm', 'hail'],                                         'lightning'],
+  [['snow', 'ice', 'freez', 'thaw', 'snowmelt'],                     'snow'],
+  [['precipitation', 'rain', 'rainbow'],                             'rain'],
+  [['wind'],                                                         'wind'],
+  [['flood'],                                                        'flood'],
+  [['temperature'],                                                  'thermo'],
+  [['cloud', 'fog', 'halo'],                                         'cloud'],
+  [['flora', 'fauna', 'grain', 'harvest', 'oat', 'plant', 'blossom'],'wheat'],
+  [['food market', 'price', 'kind of goods', 'market'],              'scales'],
 ];
 function getIconKey(coding) {
   if (!coding) return 'cloud';
@@ -439,15 +437,15 @@ function getIcon(coding) { return ICONS[getIconKey(coding)] || ICONS.cloud; }
 [
   ['legend-book',      'book',      'Sermon'],
   ['legend-lightning', 'lightning', 'Storm / Hail'],
-  ['legend-snow',      'snow',      'Snow / Ice'],
-  ['legend-rain',      'rain',      'Rain'],
+  ['legend-snow',      'snow',      'Snow / Ice / Freeze'],
+  ['legend-rain',      'rain',      'Rain / Precipitation'],
   ['legend-wind',      'wind',      'Wind'],
   ['legend-flood',     'flood',     'Flood'],
   ['legend-thermo',    'thermo',    'Temperature'],
-  ['legend-cloud',     'cloud',     'Cloud / Fog'],
-  ['legend-wheat',     'wheat',     'Harvest / Grain'],
+  ['legend-cloud',     'cloud',     'Clouds / Fog / Halo'],
+  ['legend-wheat',     'wheat',     'Flora & Fauna'],
   ['legend-grape',     'grape',     'Wine'],
-  ['legend-scales',    'scales',    'Prices'],
+  ['legend-scales',    'scales',    'Food Market'],
 ].forEach(([id, key, label]) => {
   const el = document.getElementById(id);
   if (el) el.innerHTML = ICONS[key] + label;
