@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip install:*)",
+      "Bash(python tambora_scrape.py)",
+      "Bash(python -c ':*)"
+    ]
+  }
+}

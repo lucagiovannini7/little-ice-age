@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Little Ice Age — Sermon & Weather Timeline</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:    #111111;
+      --dark:     #1a1a1a;
+      --panel:    #161616;
+      --border:   #2a2a2a;
+      --red:      #8b1a1a;
+      --red-lt:   #b52222;
+      --grey1:    #888888;
+      --grey2:    #555555;
+      --text:     #cccccc;
+      --white:    #f0f0f0;
+    }
+
+    html, body { height: 100%; background: var(--black); color: var(--text);
+                 font-family: 'Georgia', serif; overflow: hidden; }
+
+    /* ── Header ─────────────────────────────────────── */
+    header {
+      height: 52px; background: var(--dark); border-bottom: 2px solid var(--red);
+      display: flex; align-items: center; padding: 0 24px; gap: 16px; flex-shrink: 0;
+    }
+    header h1 { font-size: 1rem; font-weight: normal; letter-spacing: .12em;
+                text-transform: uppercase; color: var(--white); }
+    header .sub { font-size: .8rem; color: var(--grey1); font-style: italic; }
+    header .pill {
+      margin-left: auto; font-size: .72rem; color: var(--grey2);
+      font-family: 'Courier New', monospace; letter-spacing: .06em; text-transform: uppercase;
+    }
+
+    /* ── Layout ──────────────────────────────────────── */
+    #app { display: flex; height: calc(100vh - 52px); overflow: hidden; }
+
+    /* ── Sidebar ─────────────────────────────────────── */
+    #sidebar {
+      width: 230px; flex-shrink: 0; background: var(--panel);
+      border-right: 2px solid var(--border); overflow-y: auto;
+      scrollbar-width: thin; scrollbar-color: var(--grey2) transparent;
+    }
+    #sidebar h2 {
+      font-size: .65rem; text-transform: uppercase; letter-spacing: .1em;
+      color: var(--grey2); padding: 14px 16px 10px;
+      font-family: 'Courier New', monospace; border-bottom: 1px solid var(--border);
+    }
+    .sermon-item {
+      padding: 10px 16px; cursor: pointer; border-bottom: 1px solid var(--border);
+      transition: background .15s;
+    }
+    .sermon-item:hover { background: #1e1e1e; }
+    .sermon-item.active { background: #1e1e1e; border-left: 3px solid var(--red); }
+    .sermon-item .s-year {
+      font-size: 1.1rem; color: var(--red); font-family: 'Georgia', serif;
+      line-height: 1;
+    }
+    .sermon-item .s-author { font-size: .78rem; color: var(--text); margin-top: 2px; }
+    .sermon-item .s-place {
+      font-size: .7rem; color: var(--grey1); margin-top: 2px;
+      font-family: 'Courier New', monospace;
+    }
+    .sermon-item .s-dot {
+      display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--grey2); margin-right: 5px; vertical-align: middle;
+    }
+    .sermon-item.has-data .s-dot { background: var(--red-lt); }
+
+    /* ── Main panel ──────────────────────────────────── */
+    #main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+    /* ── Map ─────────────────────────────────────────── */
+    #map { flex: 0 0 300px; z-index: 0; }
+
+    .leaflet-control-attribution { background: rgba(17,17,17,.7)!important; color:#555!important; }
+    .leaflet-control-attribution a { color:#666!important; }
+    .leaflet-control-zoom a { background:var(--dark)!important; color:var(--text)!important; border-color:var(--border)!important; }
+
+    /* ── Sermon info bar ─────────────────────────────── */
+    #info-bar {
+      flex-shrink: 0; height: 54px; background: var(--dark);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 24px; gap: 24px; overflow: hidden;
+    }
+    #info-year { font-size: 1.6rem; color: var(--red); font-family: 'Georgia', serif; flex-shrink: 0; }
+    #info-author { font-size: .85rem; color: var(--white); flex: 1; overflow: hidden;
+                   text-overflow: ellipsis; white-space: nowrap; }
+    #info-place {
+      font-size: .72rem; color: var(--grey1); font-family: 'Courier New', monospace;
+      flex-shrink: 0;
+    }
+    #info-match {
+      font-size: .68rem; color: var(--red-lt); font-family: 'Courier New', monospace;
+      flex-shrink: 0;
+    }
+
+    /* ── Timeline section ────────────────────────────── */
+    #timeline-section {
+      flex: 1; background: var(--panel); display: flex; flex-direction: column;
+      padding: 18px 28px 12px; overflow: hidden; min-height: 0;
+    }
+    #tl-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    #tl-header h3 {
+      font-size: .65rem; text-transform: uppercase; letter-spacing: .1em;
+      color: var(--grey2); font-family: 'Courier New', monospace;
+    }
+    #tl-current-date {
+      font-size: .72rem; color: var(--red-lt); font-family: 'Courier New', monospace;
+      letter-spacing: .06em;
+    }
+
+    /* ── The timeline itself ─────────────────────────── */
+    #timeline {
+      position: relative; flex: 1;
+      min-height: 110px; max-height: 160px;
+      cursor: crosshair; user-select: none;
+    }
+
+    /* emoji event markers */
+    .ev-marker {
+      position: absolute; font-size: 1.15rem; line-height: 1;
+      transform: translateX(-50%);
+      transition: transform .1s;
+      cursor: pointer; z-index: 10;
+    }
+    .ev-marker:hover { transform: translateX(-50%) scale(1.4); z-index: 20; }
+    /* book marker */
+    .book-marker {
+      position: absolute; font-size: 1.4rem; line-height: 1;
+      transform: translateX(-50%);
+      z-index: 15; cursor: default;
+      filter: drop-shadow(0 0 6px rgba(180,34,34,.8));
+    }
+    /* book pulse when tracker lands on it */
+    .book-marker.pulse { animation: bookpulse .6s ease-in-out infinite alternate; }
+    @keyframes bookpulse {
+      from { transform: translateX(-50%) scale(1);   filter: drop-shadow(0 0 6px rgba(180,34,34,.8)); }
+      to   { transform: translateX(-50%) scale(1.25); filter: drop-shadow(0 0 12px rgba(220,60,60,1));  }
+    }
+
+    /* horizontal track */
+    #tl-track {
+      position: absolute; left: 0; right: 0;
+      height: 2px; background: var(--border);
+    }
+    /* year tick marks */
+    .tl-tick {
+      position: absolute; bottom: 0; width: 1px; background: var(--grey2);
+      transform: translateX(-50%);
+    }
+    .tl-tick.major { background: var(--grey1); }
+    /* year labels */
+    .tl-label {
+      position: absolute; font-size: .62rem; color: var(--grey2);
+      font-family: 'Courier New', monospace;
+      transform: translateX(-50%);
+      white-space: nowrap;
+    }
+
+    /* tracker */
+    #tracker {
+      position: absolute; top: 0; bottom: 0;
+      width: 1px; background: var(--red);
+      transform: translateX(-50%);
+      z-index: 30; pointer-events: none;
+    }
+    #tracker-knob {
+      position: absolute; left: 50%; width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--red); border: 2px solid var(--white);
+      transform: translate(-50%, -50%);
+      cursor: ew-resize; pointer-events: all;
+      box-shadow: 0 0 0 2px rgba(139,26,26,.4);
+    }
+
+    /* tooltip */
+    #ev-tooltip {
+      position: fixed; background: rgba(22,22,22,.95);
+      border: 1px solid var(--red); border-radius: 2px;
+      padding: 6px 10px; font-size: .72rem; color: var(--text);
+      font-family: 'Courier New', monospace; pointer-events: none;
+      z-index: 9999; opacity: 0; transition: opacity .15s;
+      white-space: nowrap; line-height: 1.6;
+    }
+    #ev-tooltip.visible { opacity: 1; }
+
+    /* empty state */
+    #empty-state {
+      position: absolute; inset: 0; display: flex; align-items: center;
+      justify-content: center; color: var(--grey2); font-size: .8rem;
+      font-style: italic; pointer-events: none;
+    }
+
+    /* legend */
+    #legend {
+      flex-shrink: 0; display: flex; gap: 14px; flex-wrap: wrap;
+      margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--border);
+    }
+    .legend-item { font-size: .65rem; color: var(--grey1); display: flex; align-items: center; gap: 4px; }
+    .legend-item span { font-size: .85rem; }
+
+    /* ── Responsive ──────────────────────────────────── */
+    @media (max-width: 700px) {
+      #sidebar { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="display:flex;align-items:baseline;gap:12px">
+    <h1>Little Ice Age</h1>
+    <span class="sub">Sermon &amp; Weather Events Timeline</span>
+  </div>
+  <span class="pill" id="match-count"></span>
+</header>
+
+<div id="app">
+  <nav id="sidebar">
+    <h2>Sermons</h2>
+    <div id="sermon-list"></div>
+  </nav>
+
+  <div id="main">
+    <div id="map"></div>
+
+    <div id="info-bar">
+      <div id="info-year">—</div>
+      <div id="info-author">Select a sermon from the list</div>
+      <div id="info-place"></div>
+      <div id="info-match"></div>
+    </div>
+
+    <div id="timeline-section">
+      <div id="tl-header">
+        <h3>Weather &amp; Event Timeline</h3>
+        <span id="tl-current-date"></span>
+      </div>
+
+      <div id="timeline">
+        <div id="empty-state">No sermon selected</div>
+        <div id="tracker" style="display:none">
+          <div id="tracker-knob"></div>
+        </div>
+      </div>
+
+      <div id="legend">
+        <div class="legend-item"><span>📖</span> Sermon</div>
+        <div class="legend-item"><span>⛈️</span> Thunderstorm/Hail</div>
+        <div class="legend-item"><span>❄️</span> Snow/Ice/Freeze</div>
+        <div class="legend-item"><span>🌧️</span> Rain</div>
+        <div class="legend-item"><span>💨</span> Wind</div>
+        <div class="legend-item"><span>🌡️</span> Temperature</div>
+        <div class="legend-item"><span>🌊</span> Flood</div>
+        <div class="legend-item"><span>🌾</span> Harvest/Grain</div>
+        <div class="legend-item"><span>💰</span> Prices</div>
+        <div class="legend-item"><span>🍷</span> Wine</div>
+        <div class="legend-item"><span>☁️</span> Cloud/Fog</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="ev-tooltip"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="data.js"></script>
+<script src="weather_data.js"></script>
+<script>
+// ── Emoji mapping ─────────────────────────────────────────────────────────────
+const CODING_EMOJI = {
+  'thunderstorm':                          '⛈️',
+  'hail':                                  '🌨️',
+  'hail & thunderstorm':                   '⛈️',
+  'snow':                                  '❄️',
+  'snow depth degree':                     '❄️',
+  'snow & shortterm':                      '🌨️',
+  'shortterm & snow':                      '🌨️',
+  'snowmelt':                              '💧',
+  'freezing temperatures':                 '🥶',
+  'ice formation & rivers':                '🧊',
+  'thawing':                               '💧',
+  'rain':                                  '🌧️',
+  'rain & shortterm':                      '🌦️',
+  'shortterm & rain':                      '🌦️',
+  'rainbow':                               '🌈',
+  'wind force':                            '💨',
+  'wind direction':                        '🌬️',
+  'fog':                                   '🌫️',
+  'cloud cover':                           '☁️',
+  'halo':                                  '🌟',
+  'flood extent & flood intensity':        '🌊',
+  'flood intensity':                       '🌊',
+  'temperature level':                     '🌡️',
+  'longterm':                              '📅',
+  'grain & general development & overall...': '🌾',
+  'grain & harvest quantity':              '🌾',
+  'harvest & grain & begin':               '🌾',
+  'harvest & oat & begin':                 '🌾',
+  'fruits & blossoming':                   '🌸',
+  'fruits & harvest quantity':             '🍎',
+  'plants & general development &...':     '🌱',
+  'price & kind of goods & plants':        '💰',
+  'price & kind of goods & rye':           '💰',
+  'price & kind of goods & barley':        '💰',
+  'price & kind of goods & oat':           '💰',
+  'wine & general development & overall...':'🍷',
+  'wine & insects':                        '🍷',
+};
+
+function getEmoji(coding) {
+  if (!coding) return '🌀';
+  const lower = coding.toLowerCase();
+  for (const [key, emoji] of Object.entries(CODING_EMOJI)) {
+    if (lower.startsWith(key.toLowerCase())) return emoji;
+  }
+  return '🌀';
+}
+
+// ── Year parsing ──────────────────────────────────────────────────────────────
+function parseYear(period) {
+  if (!period) return null;
+  const m = (period + '').match(/^(\d{4})(?:-(\d{1,2})(?:-(\d{1,2}))?)?/);
+  if (!m) return null;
+  const y = parseInt(m[1]);
+  const mo = m[2] ? parseInt(m[2]) : 1;
+  const dy = m[3] ? parseInt(m[3]) : 1;
+  return y + (mo - 1) / 12 + (dy - 1) / 365;
+}
+
+function sermonYear(sermon) {
+  const raw = String(sermon.year || '').replace(/[\[\]]/g, '').trim();
+  return parseFloat(raw) || null;
+}
+
+function formatDecimalYear(y) {
+  if (y == null) return '—';
+  const yr = Math.floor(y);
+  const mo = Math.round((y - yr) * 12) + 1;
+  return mo > 1 ? `${yr}-${String(mo).padStart(2,'0')}` : String(yr);
+}
+
+// ── Coordinate parsing ────────────────────────────────────────────────────────
+function parseCoords(s) {
+  if (!s) return null;
+  const m = s.match(/(\d+)[°]\s*(\d+)[^\dN]*N,?\s*(\d+)[°]\s*(\d+)[^\dE]*E/i);
+  if (!m) return null;
+  return [parseInt(m[1]) + parseInt(m[2])/60, parseInt(m[3]) + parseInt(m[4])/60];
+}
+
+// ── Map init ──────────────────────────────────────────────────────────────────
+const map = L.map('map', { center: [50.5, 11], zoom: 5, zoomControl: true });
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+  subdomains: 'abcd', maxZoom: 19,
+}).addTo(map);
+
+// Inject dark tooltip style once
+const styleEl = document.createElement('style');
+styleEl.textContent = `.map-tt{background:#1a1a1a;border:1px solid #8b1a1a;color:#ccc;font-family:'Courier New',monospace;font-size:.7rem;padding:4px 8px;border-radius:2px;box-shadow:none;letter-spacing:.04em}.map-tt::before{border-top-color:#8b1a1a!important}`;
+document.head.appendChild(styleEl);
+
+let mapMarker = null;
+function flyToSermon(sermon) {
+  const ll = parseCoords(sermon.coordinates);
+  if (!ll) return;
+  if (mapMarker) map.removeLayer(mapMarker);
+  mapMarker = L.circleMarker(ll, {
+    radius: 9, fillColor: '#8b1a1a', color: '#fff', weight: 2,
+    opacity: .9, fillOpacity: .9,
+  }).addTo(map);
+  mapMarker.bindTooltip(
+    `${String(sermon.year||'').replace(/[\[\]]/g,'')} · ${sermon.author||''}`,
+    { direction:'top', offset:[0,-6], className:'map-tt' }
+  );
+  map.flyTo(ll, 8, { duration: 0.8 });
+}
+
+// ── Weather matching ──────────────────────────────────────────────────────────
+function matchWeather(sermon) {
+  const place = (sermon.place_of_print || '').toLowerCase().trim();
+  return WEATHER.filter(w => w.city.toLowerCase().trim() === place);
+}
+
+// ── Timeline rendering ────────────────────────────────────────────────────────
+const tl        = document.getElementById('timeline');
+const tracker   = document.getElementById('tracker');
+const knob      = document.getElementById('tracker-knob');
+const dateLabel = document.getElementById('tl-current-date');
+const emptyMsg  = document.getElementById('empty-state');
+const tooltip   = document.getElementById('ev-tooltip');
+
+let tlMinYear = 1540, tlMaxYear = 1760;
+let bookLeft = 50; // % position of the 📖
+
+function yearToPercent(y) {
+  return Math.max(0, Math.min(100, (y - tlMinYear) / (tlMaxYear - tlMinYear) * 100));
+}
+function percentToYear(p) {
+  return tlMinYear + (p / 100) * (tlMaxYear - tlMinYear);
+}
+
+function renderTimeline(sermon, weatherEvents) {
+  // Clear previous dynamic content (keep tracker + empty-state)
+  tl.querySelectorAll('.ev-marker,.book-marker,.tl-track,.tl-tick,.tl-label').forEach(el => el.remove());
+  emptyMsg.style.display = 'none';
+
+  const sy = sermonYear(sermon);
+  const years = weatherEvents.map(w => w.year).filter(Boolean);
+  if (sy) years.push(sy);
+
+  if (!sy && years.length === 0) { emptyMsg.style.display = 'flex'; tracker.style.display = 'none'; return; }
+
+  const minY = Math.min(...years) - 5;
+  const maxY = Math.max(...years) + 5;
+  tlMinYear = Math.floor(minY / 5) * 5;
+  tlMaxYear = Math.ceil(maxY / 5) * 5;
+
+  const range = tlMaxYear - tlMinYear;
+  const TRACK_TOP = 55; // px from top of #timeline
+
+  // ── Track bar ──
+  const trackEl = document.createElement('div');
+  trackEl.className = 'tl-track';
+  trackEl.style.top = TRACK_TOP + 'px';
+  tl.appendChild(trackEl);
+
+  // ── Tick marks + labels ──
+  const step = range <= 30 ? 5 : range <= 60 ? 10 : 20;
+  const minorStep = step / 5;
+  for (let y = tlMinYear; y <= tlMaxYear; y += minorStep) {
+    const pct = yearToPercent(y);
+    const isMajor = Math.round(y % step) === 0;
+    const tick = document.createElement('div');
+    tick.className = 'tl-tick' + (isMajor ? ' major' : '');
+    tick.style.left = pct + '%';
+    tick.style.height = (isMajor ? 12 : 6) + 'px';
+    tick.style.top = TRACK_TOP + 2 + 'px';
+    tl.appendChild(tick);
+
+    if (isMajor && Number.isInteger(y)) {
+      const lbl = document.createElement('div');
+      lbl.className = 'tl-label';
+      lbl.textContent = y;
+      lbl.style.left = pct + '%';
+      lbl.style.top = (TRACK_TOP + 16) + 'px';
+      tl.appendChild(lbl);
+    }
+  }
+
+  // ── Weather event markers (two staggered rows above track) ──
+  const sortedEvents = [...weatherEvents].filter(w => w.year).sort((a,b) => a.year - b.year);
+  sortedEvents.forEach((ev, i) => {
+    const pct = yearToPercent(ev.year);
+    const row = i % 2; // 0 = upper, 1 = lower
+    const topPx = row === 0 ? 6 : 26;
+    const el = document.createElement('div');
+    el.className = 'ev-marker';
+    el.textContent = getEmoji(ev.coding);
+    el.style.left = pct + '%';
+    el.style.top = topPx + 'px';
+    el.dataset.period = ev.period;
+    el.dataset.position = ev.position;
+    el.dataset.coding = ev.coding;
+    el.addEventListener('mouseenter', showTooltip);
+    el.addEventListener('mouseleave', hideTooltip);
+    tl.appendChild(el);
+  });
+
+  // ── Book marker (📖 for the sermon) ──
+  if (sy != null) {
+    bookLeft = yearToPercent(sy);
+    const book = document.createElement('div');
+    book.className = 'book-marker';
+    book.id = 'book-marker';
+    book.textContent = '📖';
+    book.style.left = bookLeft + '%';
+    book.style.top = '4px';
+    book.title = `Sermon: ${String(sermon.year||'').replace(/[\[\]]/g,'')} · ${sermon.author||''}`;
+    tl.appendChild(book);
+  }
+
+  // ── Tracker ──
+  tracker.style.display = 'block';
+  knob.style.top = TRACK_TOP + 'px';
+  setTrackerPos(bookLeft);
+}
+
+function setTrackerPos(pct) {
+  pct = Math.max(0, Math.min(100, pct));
+  tracker.style.left = pct + '%';
+  const yr = percentToYear(pct);
+  dateLabel.textContent = formatDecimalYear(yr);
+  // Pulse book when tracker is within ~1.5% of it
+  const book = document.getElementById('book-marker');
+  if (book) {
+    const near = Math.abs(pct - bookLeft) < 1.5;
+    book.classList.toggle('pulse', near);
+  }
+}
+
+// ── Dragging ─────────────────────────────────────────────────────────────────
+let dragging = false;
+
+knob.addEventListener('mousedown', e => { dragging = true; e.preventDefault(); });
+tl.addEventListener('mousedown', e => {
+  if (e.target === knob) return;
+  const rect = tl.getBoundingClientRect();
+  setTrackerPos((e.clientX - rect.left) / rect.width * 100);
+  dragging = true;
+  e.preventDefault();
+});
+document.addEventListener('mousemove', e => {
+  if (!dragging) return;
+  const rect = tl.getBoundingClientRect();
+  setTrackerPos((e.clientX - rect.left) / rect.width * 100);
+});
+document.addEventListener('mouseup', () => { dragging = false; });
+
+// Touch support
+knob.addEventListener('touchstart', e => { dragging = true; e.preventDefault(); }, { passive: false });
+document.addEventListener('touchmove', e => {
+  if (!dragging) return;
+  const t = e.touches[0];
+  const rect = tl.getBoundingClientRect();
+  setTrackerPos((t.clientX - rect.left) / rect.width * 100);
+}, { passive: true });
+document.addEventListener('touchend', () => { dragging = false; });
+
+// ── Tooltip ──────────────────────────────────────────────────────────────────
+function showTooltip(e) {
+  const el = e.currentTarget;
+  tooltip.innerHTML =
+    `<strong>${el.dataset.period}</strong><br>` +
+    `${el.dataset.position}<br>` +
+    `${getEmoji(el.dataset.coding)} ${el.dataset.coding}`;
+  tooltip.classList.add('visible');
+  moveTooltip(e);
+}
+function hideTooltip() { tooltip.classList.remove('visible'); }
+document.addEventListener('mousemove', e => {
+  if (tooltip.classList.contains('visible') && !dragging)
+    moveTooltip(e);
+});
+function moveTooltip(e) {
+  const x = e.clientX, y = e.clientY;
+  const tw = tooltip.offsetWidth || 160;
+  const th = tooltip.offsetHeight || 60;
+  tooltip.style.left = (x + 12 + tw > window.innerWidth ? x - tw - 12 : x + 12) + 'px';
+  tooltip.style.top  = (y - 10 < 0 ? y + 10 : y - th / 2) + 'px';
+}
+
+// ── Sidebar + selection ───────────────────────────────────────────────────────
+let activeItem = null;
+
+function buildSidebar() {
+  const list = document.getElementById('sermon-list');
+  const sorted = [...SERMONS].sort((a,b) => {
+    const ya = parseFloat(String(a.year||0).replace(/[\[\]]/g,''));
+    const yb = parseFloat(String(b.year||0).replace(/[\[\]]/g,''));
+    return ya - yb;
+  });
+
+  let matchCount = 0;
+  sorted.forEach(s => {
+    const events = matchWeather(s);
+    if (events.length > 0) matchCount++;
+
+    const item = document.createElement('div');
+    item.className = 'sermon-item' + (events.length > 0 ? ' has-data' : '');
+    item.innerHTML = `
+      <div class="s-year">${String(s.year||'').replace(/[\[\]]/g,'')}</div>
+      <div class="s-author">
+        <span class="s-dot"></span>${(s.author||'').split(',')[0]}
+      </div>
+      <div class="s-place">${s.place_of_print||'—'}</div>`;
+    item.addEventListener('click', () => selectSermon(s, item));
+    list.appendChild(item);
+  });
+
+  document.getElementById('match-count').textContent =
+    `${matchCount} / ${SERMONS.length} with weather data`;
+}
+
+function selectSermon(sermon, itemEl) {
+  if (activeItem) activeItem.classList.remove('active');
+  activeItem = itemEl;
+  itemEl.classList.add('active');
+
+  const events = matchWeather(sermon);
+  const yr = String(sermon.year||'').replace(/[\[\]]/g,'');
+
+  document.getElementById('info-year').textContent = yr;
+  document.getElementById('info-author').textContent =
+    sermon.title_original ? sermon.title_original.slice(0,80) + '…' : sermon.author || '';
+  document.getElementById('info-place').textContent = sermon.place_of_print || '';
+  document.getElementById('info-match').textContent =
+    events.length > 0 ? `${events.length} weather events` : '';
+
+  flyToSermon(sermon);
+  renderTimeline(sermon, events);
+}
+
+// ── Boot ──────────────────────────────────────────────────────────────────────
+buildSidebar();
+
+// Auto-select first sermon with weather data
+const first = SERMONS.find(s => matchWeather(s).length > 0);
+if (first) {
+  const items = document.querySelectorAll('.sermon-item');
+  const sorted = [...SERMONS].sort((a,b) =>
+    parseFloat(String(a.year||0).replace(/[\[\]]/g,'')) -
+    parseFloat(String(b.year||0).replace(/[\[\]]/g,''))
+  );
+  const idx = sorted.findIndex(s => s.slug === first.slug);
+  if (idx >= 0) selectSermon(first, items[idx]);
+}
+</script>
+</body>
+</html>
