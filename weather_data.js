@@ -1,1 +1,1256 @@
-const WEATHER = [{"city": "Regensburg", "period": "1551", "position": "Regensburg", "coding": "cloud cover", "year": 1551.0}, {"city": "Regensburg", "period": "1551", "position": "Regensburg", "coding": "price & kind of goods & plants", "year": 1551.0}, {"city": "Regensburg", "period": "1551", "position": "Regensburg", "coding": "temperature level", "year": 1551.0}, {"city": "Regensburg", "period": "1551", "position": "Regensburg", "coding": "price & kind of goods & plants", "year": 1551.0}, {"city": "Regensburg", "period": "1551", "position": "Regensburg", "coding": "temperature level", "year": 1551.0}, {"city": "Regensburg", "period": "1551", "position": "Regensburg", "coding": "temperature level", "year": 1551.0}, {"city": "Regensburg", "period": "1552-01", "position": "Regensburg", "coding": "price & kind of goods & plants", "year": 1552.0}, {"city": "Regensburg", "period": "1552-01", "position": "Regensburg", "coding": "price & kind of goods & plants", "year": 1552.0}, {"city": "Regensburg", "period": "1552-01", "position": "Regensburg", "coding": "grain & general development & overall...", "year": 1552.0}, {"city": "Regensburg", "period": "1552-01-08", "position": "Regensburg", "coding": "wind force", "year": 1552.0192}, {"city": "Regensburg", "period": "1552-01-08", "position": "Regensburg", "coding": "wind force", "year": 1552.0192}, {"city": "Regensburg", "period": "1552-01-13 11:00", "position": "Amberg", "coding": "thunderstorm", "year": 1552.0329}, {"city": "Regensburg", "period": "1552-02-15", "position": "Regensburg", "coding": "wind force", "year": 1552.1217}, {"city": "Regensburg", "period": "1552-06", "position": "Regensburg", "coding": "longterm", "year": 1552.4167}, {"city": "Regensburg", "period": "1552-06", "position": "Regensburg", "coding": "temperature level", "year": 1552.4167}, {"city": "Regensburg", "period": "1552-06", "position": "Regensburg", "coding": "longterm", "year": 1552.4167}, {"city": "Regensburg", "period": "1552-06", "position": "Regensburg", "coding": "temperature level", "year": 1552.4167}, {"city": "Regensburg", "period": "1552-06-05 18:00", "position": "Regensburg", "coding": "thunderstorm", "year": 1552.4276}, {"city": "Regensburg", "period": "1552-06-21", "position": "Regensburg", "coding": "harvest & grain & begin", "year": 1552.4715}, {"city": "Regensburg", "period": "1552-06-29", "position": "Regensburg", "coding": "hail", "year": 1552.4934}, {"city": "Regensburg", "period": "1552-06-29", "position": "Regensburg", "coding": "hail", "year": 1552.4934}, {"city": "Regensburg", "period": "1552-06-29", "position": "Regensburg", "coding": "temperature level", "year": 1552.4934}, {"city": "Regensburg", "period": "1552-06-29", "position": "Regensburg", "coding": "price & kind of goods & plants", "year": 1552.4934}, {"city": "Regensburg", "period": "1552-06-29", "position": "Regensburg", "coding": "wind force", "year": 1552.4934}, {"city": "Regensburg", "period": "1552-07-01", "position": "Regensburg", "coding": "wind force", "year": 1552.5}, {"city": "Regensburg", "period": "1552-07-01", "position": "Regensburg", "coding": "wind force", "year": 1552.5}, {"city": "Regensburg", "period": "1552-07-20", "position": "Regensburg", "coding": "thunderstorm", "year": 1552.5521}, {"city": "Regensburg", "period": "1552-08-01", "position": "Regensburg", "coding": "wine & general development & overall...", "year": 1552.5833}, {"city": "Regensburg", "period": "1552-09", "position": "Regensburg", "coding": "temperature level", "year": 1552.6667}, {"city": "Regensburg", "period": "1552-09", "position": "Regensburg", "coding": "wind force", "year": 1552.6667}, {"city": "Regensburg", "period": "1552-09", "position": "Regensburg", "coding": "rain", "year": 1552.6667}, {"city": "Regensburg", "period": "1553-02-26", "position": "Regensburg", "coding": "temperature level", "year": 1553.1518}, {"city": "Regensburg", "period": "1553-02-26", "position": "Regensburg", "coding": "temperature level", "year": 1553.1518}, {"city": "Regensburg", "period": "1553-02-26", "position": "Regensburg", "coding": "snow & shortterm", "year": 1553.1518}, {"city": "Regensburg", "period": "1553-02-26", "position": "Regensburg", "coding": "snow & shortterm", "year": 1553.1518}, {"city": "Regensburg", "period": "1553-03-01", "position": "Regensburg", "coding": "snow & shortterm", "year": 1553.1667}, {"city": "Regensburg", "period": "1553-03-01", "position": "Regensburg", "coding": "temperature level", "year": 1553.1667}, {"city": "Regensburg", "period": "1553-03-01", "position": "Regensburg", "coding": "freezing temperatures", "year": 1553.1667}, {"city": "Regensburg", "period": "1553-03-01", "position": "Regensburg", "coding": "temperature level", "year": 1553.1667}, {"city": "Regensburg", "period": "1553-03-01", "position": "Regensburg", "coding": "freezing temperatures", "year": 1553.1667}, {"city": "Regensburg", "period": "1553-04-24", "position": "Regensburg", "coding": "snow", "year": 1553.313}, {"city": "Regensburg", "period": "1553-04-26", "position": "Regensburg", "coding": "snow", "year": 1553.3185}, {"city": "Regensburg", "period": "1553-04-26", "position": "Regensburg", "coding": "freezing temperatures", "year": 1553.3185}, {"city": "Regensburg", "period": "1553-05-18", "position": "Regensburg", "coding": "hail", "year": 1553.3799}, {"city": "Regensburg", "period": "1553-05-18 14:00", "position": "Regensburg", "coding": "rain & shortterm", "year": 1553.3799}, {"city": "Regensburg", "period": "1553-05-18 14:00", "position": "Regensburg", "coding": "rain & shortterm", "year": 1553.3799}, {"city": "Regensburg", "period": "1553-05-18 14:00", "position": "Regensburg", "coding": "wind direction", "year": 1553.3799}, {"city": "Regensburg", "period": "1553-05-18 14:00", "position": "Regensburg", "coding": "hail", "year": 1553.3799}, {"city": "Regensburg", "period": "1553-05-18 18:00", "position": "Regensburg", "coding": "cloud cover", "year": 1553.3799}, {"city": "Regensburg", "period": "1553-05-18 18:00", "position": "Regensburg", "coding": "thunderstorm", "year": 1553.3799}, {"city": "Regensburg", "period": "1553-05-18 18:00", "position": "Regensburg", "coding": "temperature level", "year": 1553.3799}, {"city": "Regensburg", "period": "1553-05-18 18:00", "position": "Regensburg", "coding": "rain & shortterm", "year": 1553.3799}, {"city": "Regensburg", "period": "1553-05-18 18:00", "position": "Regensburg", "coding": "hail & thunderstorm", "year": 1553.3799}, {"city": "Regensburg", "period": "1554-02-04", "position": "Regensburg", "coding": "temperature level", "year": 1554.0916}, {"city": "Regensburg", "period": "1554-02-04", "position": "Regensburg", "coding": "freezing temperatures", "year": 1554.0916}, {"city": "Regensburg", "period": "1554-03-09 14:00", "position": "Regensburg", "coding": "halo", "year": 1554.1886}, {"city": "Regensburg", "period": "1555-11-30", "position": "Rhine", "coding": "flood extent & flood intensity", "year": 1555.9128}, {"city": "Regensburg", "period": "1556-02-12", "position": "Lindau", "coding": "snow depth degree", "year": 1556.1135}, {"city": "Regensburg", "period": "1556-02-12", "position": "Lindau", "coding": "snow & shortterm", "year": 1556.1135}, {"city": "Regensburg", "period": "1556-07-16", "position": "Lindau", "coding": "harvest & oat & begin", "year": 1556.5411}, {"city": "Regensburg", "period": "1556-07-16", "position": "Lindau", "coding": "harvest & oat & begin", "year": 1556.5411}, {"city": "Augsburg", "period": "1561", "position": "Augsburg", "coding": "snow & shortterm", "year": 1561.0}, {"city": "Augsburg", "period": "1561", "position": "Augsburg", "coding": "temperature level", "year": 1561.0}, {"city": "Augsburg", "period": "1562-05-05", "position": "Augsburg", "coding": "temperature level", "year": 1562.3443}, {"city": "Augsburg", "period": "1562-05-05", "position": "Augsburg", "coding": "rain & shortterm", "year": 1562.3443}, {"city": "Augsburg", "period": "1562-05-06 03:00", "position": "Augsburg", "coding": "rain & shortterm", "year": 1562.347}, {"city": "Augsburg", "period": "1562-05-06 03:00", "position": "Augsburg", "coding": "thunderstorm", "year": 1562.347}, {"city": "Augsburg", "period": "1562-05-06 03:00", "position": "Thierhaupten", "coding": "hail & thunderstorm", "year": 1562.347}, {"city": "Augsburg", "period": "1562-05-06 03:00", "position": "Westerhausen", "coding": "thunderstorm", "year": 1562.347}, {"city": "Augsburg", "period": "1562-05-06 03:00", "position": "Thierhaupten", "coding": "thunderstorm", "year": 1562.347}, {"city": "Augsburg", "period": "1562-05-06 03:00", "position": "Nordendorf", "coding": "thunderstorm", "year": 1562.347}, {"city": "Augsburg", "period": "1562-05-06 03:00", "position": "Nordendorf", "coding": "rain & shortterm", "year": 1562.347}, {"city": "Augsburg", "period": "1562-05-06 03:00", "position": "Westerhausen", "coding": "rain & shortterm", "year": 1562.347}, {"city": "Augsburg", "period": "1562-05-06 03:00", "position": "Thierhaupten", "coding": "rain & shortterm", "year": 1562.347}, {"city": "Augsburg", "period": "1562-05-06 03:00", "position": "Westerhausen", "coding": "hail & thunderstorm", "year": 1562.347}, {"city": "Augsburg", "period": "1562-05-06 03:00", "position": "Nordendorf", "coding": "hail & thunderstorm", "year": 1562.347}, {"city": "Augsburg", "period": "1562-06-06", "position": "Augsburg", "coding": "rain & shortterm", "year": 1562.4304}, {"city": "Augsburg", "period": "1562-06-16", "position": "Friedberg bei Augsburg", "coding": "thunderstorm", "year": 1562.4578}, {"city": "Augsburg", "period": "1562-07-10", "position": "Augsburg", "coding": "thunderstorm", "year": 1562.5247}, {"city": "Augsburg", "period": "1562-08-02 22:00", "position": "Augsburg", "coding": "rain & shortterm", "year": 1562.5861}, {"city": "Augsburg", "period": "1562-08-02 22:00", "position": "Augsburg", "coding": "hail", "year": 1562.5861}, {"city": "Augsburg", "period": "1562-08-02 22:00", "position": "Augsburg", "coding": "hail", "year": 1562.5861}, {"city": "Augsburg", "period": "1562-08-02 22:00", "position": "Augsburg", "coding": "rain & shortterm", "year": 1562.5861}, {"city": "Augsburg", "period": "1562-08-02 22:00", "position": "Augsburg", "coding": "hail & thunderstorm", "year": 1562.5861}, {"city": "Augsburg", "period": "1562-08-02 22:00", "position": "Gersthofen", "coding": "hail & thunderstorm", "year": 1562.5861}, {"city": "Augsburg", "period": "1562-08-02 22:00", "position": "Gersthofen", "coding": "hail & thunderstorm", "year": 1562.5861}, {"city": "Augsburg", "period": "1562-08-02 23:00", "position": "Lemwerder", "coding": "cloud cover", "year": 1562.5861}, {"city": "Augsburg", "period": "1562-08-03 23:00", "position": "Gersthofen", "coding": "thunderstorm", "year": 1562.5888}, {"city": "Augsburg", "period": "1563-03-19", "position": "Augsburg", "coding": "wind force", "year": 1563.216}, {"city": "Augsburg", "period": "1563-03-19", "position": "Augsburg", "coding": "rain", "year": 1563.216}, {"city": "Augsburg", "period": "1563-03-19", "position": "Augsburg", "coding": "rain", "year": 1563.216}, {"city": "Augsburg", "period": "1563-03-20", "position": "Augsburg", "coding": "wind force", "year": 1563.2187}, {"city": "Augsburg", "period": "1563-03-20", "position": "Augsburg", "coding": "rain", "year": 1563.2187}, {"city": "Augsburg", "period": "1563-05-28 19:00", "position": "Großaitingen", "coding": "thunderstorm", "year": 1563.4073}, {"city": "Augsburg", "period": "1563-06", "position": "Augsburg", "coding": "temperature level", "year": 1563.4167}, {"city": "Augsburg", "period": "1563-06", "position": "Augsburg", "coding": "thunderstorm", "year": 1563.4167}, {"city": "Augsburg", "period": "1563-06-01", "position": "Augsburg", "coding": "temperature level", "year": 1563.4167}, {"city": "Augsburg", "period": "1565-01-08", "position": "Augsburg", "coding": "rainbow", "year": 1565.0192}, {"city": "Nürnberg", "period": "1564-01-22", "position": "Nuremberg", "coding": "flood extent & flood intensity", "year": 1564.0575}, {"city": "Nürnberg", "period": "1564-01-25", "position": "Nuremberg", "coding": "flood extent & flood intensity", "year": 1564.0658}, {"city": "Nürnberg", "period": "1564-03-05", "position": "Main", "coding": "flood intensity", "year": 1564.1776}, {"city": "Nürnberg", "period": "1564", "position": "Main", "coding": "ice formation & rivers", "year": 1564.0}, {"city": "Nürnberg", "period": "1564", "position": "Rhine", "coding": "ice formation & rivers", "year": 1564.0}, {"city": "Nürnberg", "period": "1565-01-01", "position": "Nuremberg", "coding": "temperature level", "year": 1565.0}, {"city": "Nürnberg", "period": "1565-02-01", "position": "Nuremberg", "coding": "snowmelt", "year": 1565.0833}, {"city": "Nürnberg", "period": "1565-02-01", "position": "Nuremberg", "coding": "thawing", "year": 1565.0833}, {"city": "Nürnberg", "period": "1565-02-11 18:00", "position": "Nuremberg", "coding": "flood extent & flood intensity", "year": 1565.1107}, {"city": "Nürnberg", "period": "1565-03-13 02:00", "position": "Nuremberg", "coding": "flood extent & flood intensity", "year": 1565.1995}, {"city": "Nürnberg", "period": "1565-03-14", "position": "Aller", "coding": "flood extent & flood intensity", "year": 1565.2023}, {"city": "Nürnberg", "period": "1566-01", "position": "Nuremberg", "coding": "rain & shortterm", "year": 1566.0}, {"city": "Nürnberg", "period": "1566-01-26", "position": "Pegnitz", "coding": "flood extent & flood intensity", "year": 1566.0685}, {"city": "Zürich", "period": "1571-01-01", "position": "Switzerland", "coding": "temperature level", "year": 1571.0}, {"city": "Zürich", "period": "1571-01-01", "position": "Switzerland", "coding": "shortterm & snow", "year": 1571.0}, {"city": "Magdeburg", "period": "1612-01", "position": "Magdeburg", "coding": "thunderstorm", "year": 1612.0}, {"city": "Magdeburg", "period": "1612-12-28", "position": "Meißen", "coding": "flood intensity", "year": 1612.9906}, {"city": "Magdeburg", "period": "1612-12-28", "position": "Meißen", "coding": "longterm", "year": 1612.9906}, {"city": "Magdeburg", "period": "1612-12-28", "position": "Meißen", "coding": "rain & shortterm", "year": 1612.9906}, {"city": "Magdeburg", "period": "1612-12-28", "position": "Meißen", "coding": "longterm", "year": 1612.9906}, {"city": "Magdeburg", "period": "1613-05-29", "position": "England", "coding": "rain & shortterm", "year": 1613.41}, {"city": "Magdeburg", "period": "1613-05-29", "position": "England", "coding": "flood intensity", "year": 1613.41}, {"city": "Magdeburg", "period": "1613-05-29", "position": "Thüringen (Landschaft)", "coding": "flood intensity", "year": 1613.41}, {"city": "Magdeburg", "period": "1613-05-29", "position": "Thüringen (Landschaft)", "coding": "rain & shortterm", "year": 1613.41}, {"city": "Magdeburg", "period": "1615-08-03", "position": "Zerbst", "coding": "shortterm & rain", "year": 1615.5888}, {"city": "Magdeburg", "period": "1615-08-03", "position": "Magdeburg", "coding": "wind force", "year": 1615.5888}, {"city": "Magdeburg", "period": "1615-08-03", "position": "Magdeburg", "coding": "hail & thunderstorm", "year": 1615.5888}, {"city": "Magdeburg", "period": "1615-08-03", "position": "Magdeburg", "coding": "rain & shortterm", "year": 1615.5888}, {"city": "Magdeburg", "period": "1615-08-03", "position": "Magdeburg", "coding": "rain & shortterm", "year": 1615.5888}, {"city": "Magdeburg", "period": "1615-08-03", "position": "Zerbst", "coding": "longterm", "year": 1615.5888}, {"city": "Magdeburg", "period": "1615-08-03", "position": "Magdeburg", "coding": "longterm", "year": 1615.5888}, {"city": "Magdeburg", "period": "1615-08-03", "position": "Magdeburg", "coding": "thunderstorm", "year": 1615.5888}, {"city": "Magdeburg", "period": "1615", "position": "Magdeburg", "coding": "snow & shortterm", "year": 1615.0}, {"city": "Magdeburg", "period": "1615", "position": "Magdeburg", "coding": "temperature level", "year": 1615.0}, {"city": "Freiberg", "period": "1635-01", "position": "Freiberg", "coding": "temperature level", "year": 1635.0}, {"city": "Freiberg", "period": "1635-01", "position": "Freiberg", "coding": "ice formation & rivers", "year": 1635.0}, {"city": "Freiberg", "period": "1639-01", "position": "Freiberg", "coding": "plants & general development &...", "year": 1639.0}, {"city": "Freiberg", "period": "1639-01", "position": "Freiberg", "coding": "grain & harvest quantity", "year": 1639.0}, {"city": "Freiberg", "period": "1639-01", "position": "Freiberg", "coding": "price & kind of goods & plants", "year": 1639.0}, {"city": "Freiberg", "period": "1639-03-13 06:00", "position": "Freiberg", "coding": "cloud cover", "year": 1639.1995}, {"city": "Freiberg", "period": "1639-03-13 14:00", "position": "Freiberg", "coding": "fog", "year": 1639.1995}, {"city": "Jena", "period": "1644-04-26", "position": "Jena", "coding": "temperature level", "year": 1644.3185}, {"city": "Jena", "period": "1644-04-26", "position": "Jena", "coding": "fruits & blossoming", "year": 1644.3185}, {"city": "Jena", "period": "1644-04-26", "position": "Jena", "coding": "snow", "year": 1644.3185}, {"city": "Jena", "period": "1644-05-01", "position": "Jena", "coding": "wine & insects", "year": 1644.3333}, {"city": "Jena", "period": "1644-11-01", "position": "Jena", "coding": "price & kind of goods & rye", "year": 1644.8333}, {"city": "Jena", "period": "1644-12-01", "position": "Jena", "coding": "price & kind of goods & oat", "year": 1644.9167}, {"city": "Jena", "period": "1644-12-01", "position": "Jena", "coding": "price & kind of goods & rye", "year": 1644.9167}, {"city": "Jena", "period": "1644-12-01", "position": "Jena", "coding": "price & kind of goods & barley", "year": 1644.9167}, {"city": "Jena", "period": "1648-02-13", "position": "Jena", "coding": "rain", "year": 1648.1162}, {"city": "Jena", "period": "1648-02-13", "position": "Jena", "coding": "thunderstorm", "year": 1648.1162}, {"city": "Jena", "period": "1648-02-13", "position": "Jena", "coding": "cloud cover", "year": 1648.1162}, {"city": "Jena", "period": "1648-02-14", "position": "Jena", "coding": "cloud cover", "year": 1648.1189}, {"city": "Jena", "period": "1648-02-14", "position": "Jena", "coding": "rain", "year": 1648.1189}, {"city": "Jena", "period": "1648-11-24", "position": "Jena", "coding": "price & kind of goods & barley", "year": 1648.8963}, {"city": "Jena", "period": "1648-11-24", "position": "Jena", "coding": "price & kind of goods & rye", "year": 1648.8963}, {"city": "Jena", "period": "1648-11-24", "position": "Jena", "coding": "price & kind of goods & oat", "year": 1648.8963}, {"city": "Leipzig", "period": "1702-07-01", "position": "Schlesien", "coding": "flood extent & flood intensity", "year": 1702.5}, {"city": "Leipzig", "period": "1703-12-06", "position": "Neumark", "coding": "wind force", "year": 1703.9304}, {"city": "Leipzig", "period": "1703-12-08", "position": "Europa", "coding": "wind direction", "year": 1703.9358}, {"city": "Leipzig", "period": "1703-12-08", "position": "Europa", "coding": "wind force", "year": 1703.9358}, {"city": "Leipzig", "period": "1704-02-06 09:00", "position": "Leipzig", "coding": "halo", "year": 1704.097}, {"city": "Leipzig", "period": "1704-08-30", "position": "Leipzig", "coding": "thunderstorm", "year": 1704.6628}, {"city": "Leipzig", "period": "1704-11-15 14:00", "position": "Leipzig", "coding": "rain & shortterm", "year": 1704.8717}, {"city": "Leipzig", "period": "1704-11-15 14:00", "position": "Leipzig", "coding": "thunderstorm", "year": 1704.8717}, {"city": "Leipzig", "period": "1704-11-15 14:00", "position": "Leipzig", "coding": "thunderstorm", "year": 1704.8717}, {"city": "Leipzig", "period": "1704-11-15 14:00", "position": "Leipzig", "coding": "temperature level", "year": 1704.8717}, {"city": "Leipzig", "period": "1706-01", "position": "Leipzig", "coding": "fruits & harvest quantity", "year": 1706.0}, {"city": "Leipzig", "period": "1706-01", "position": "Leipzig", "coding": "price & kind of goods & plants", "year": 1706.0}, {"city": "Leipzig", "period": "1706-05-06", "position": "Leipzig", "coding": "wind force", "year": 1706.347}, {"city": "Leipzig", "period": "1706-05-06", "position": "Leipzig", "coding": "rain & shortterm", "year": 1706.347}, {"city": "Leipzig", "period": "1706-05-06", "position": "Leipzig", "coding": "temperature level", "year": 1706.347}, {"city": "Leipzig", "period": "1706-05-06", "position": "Leipzig", "coding": "hail & thunderstorm", "year": 1706.347}, {"city": "Leipzig", "period": "1706-09", "position": "Leipzig", "coding": "temperature level", "year": 1706.6667}, {"city": "Leipzig", "period": "1706-10-01", "position": "Leipzig", "coding": "thunderstorm", "year": 1706.75}, {"city": "Leipzig", "period": "1706-12-01", "position": "Leipzig", "coding": "temperature level", "year": 1706.9167}, {"city": "Leipzig", "period": "1707-09-09 07:00", "position": "Leipzig", "coding": "thunderstorm", "year": 1707.6886}, {"city": "Leipzig", "period": "1707-09-09 07:00", "position": "Leipzig", "coding": "cloud cover", "year": 1707.6886}, {"city": "Leipzig", "period": "1707-09-09 07:00", "position": "Leipzig", "coding": "thunderstorm", "year": 1707.6886}, {"city": "Leipzig", "period": "1707-09-09 07:00", "position": "Leipzig", "coding": "rain & shortterm", "year": 1707.6886}, {"city": "Ansbach", "period": "1748-09-29", "position": "Ansbach", "coding": "thunderstorm", "year": 1748.7434}];
+// Auto-generated by build_weather_data.py — do not edit manually
+const WEATHER = [
+  {
+    "city": "Regensburg",
+    "period": "1551",
+    "position": "Regensburg",
+    "coding": "cloud cover",
+    "year": 1551.0
+  },
+  {
+    "city": "Regensburg",
+    "period": "1551",
+    "position": "Regensburg",
+    "coding": "price & kind of goods & plants",
+    "year": 1551.0
+  },
+  {
+    "city": "Regensburg",
+    "period": "1551",
+    "position": "Regensburg",
+    "coding": "temperature level",
+    "year": 1551.0
+  },
+  {
+    "city": "Regensburg",
+    "period": "1551",
+    "position": "Regensburg",
+    "coding": "price & kind of goods & plants",
+    "year": 1551.0
+  },
+  {
+    "city": "Regensburg",
+    "period": "1551",
+    "position": "Regensburg",
+    "coding": "temperature level",
+    "year": 1551.0
+  },
+  {
+    "city": "Regensburg",
+    "period": "1551",
+    "position": "Regensburg",
+    "coding": "temperature level",
+    "year": 1551.0
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-01",
+    "position": "Regensburg",
+    "coding": "price & kind of goods & plants",
+    "year": 1552.0
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-01",
+    "position": "Regensburg",
+    "coding": "price & kind of goods & plants",
+    "year": 1552.0
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-01",
+    "position": "Regensburg",
+    "coding": "grain & general development & overall...",
+    "year": 1552.0
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-01-08",
+    "position": "Regensburg",
+    "coding": "wind force",
+    "year": 1552.0192
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-01-08",
+    "position": "Regensburg",
+    "coding": "wind force",
+    "year": 1552.0192
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-01-13 11:00",
+    "position": "Amberg",
+    "coding": "thunderstorm",
+    "year": 1552.0329
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-02-15",
+    "position": "Regensburg",
+    "coding": "wind force",
+    "year": 1552.1217
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-06",
+    "position": "Regensburg",
+    "coding": "longterm",
+    "year": 1552.4167
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-06",
+    "position": "Regensburg",
+    "coding": "temperature level",
+    "year": 1552.4167
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-06",
+    "position": "Regensburg",
+    "coding": "longterm",
+    "year": 1552.4167
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-06",
+    "position": "Regensburg",
+    "coding": "temperature level",
+    "year": 1552.4167
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-06-05 18:00",
+    "position": "Regensburg",
+    "coding": "thunderstorm",
+    "year": 1552.4276
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-06-21",
+    "position": "Regensburg",
+    "coding": "harvest & grain & begin",
+    "year": 1552.4715
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-06-29",
+    "position": "Regensburg",
+    "coding": "hail",
+    "year": 1552.4934
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-06-29",
+    "position": "Regensburg",
+    "coding": "hail",
+    "year": 1552.4934
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-06-29",
+    "position": "Regensburg",
+    "coding": "temperature level",
+    "year": 1552.4934
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-06-29",
+    "position": "Regensburg",
+    "coding": "price & kind of goods & plants",
+    "year": 1552.4934
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-06-29",
+    "position": "Regensburg",
+    "coding": "wind force",
+    "year": 1552.4934
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-07-01",
+    "position": "Regensburg",
+    "coding": "wind force",
+    "year": 1552.5
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-07-01",
+    "position": "Regensburg",
+    "coding": "wind force",
+    "year": 1552.5
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-07-20",
+    "position": "Regensburg",
+    "coding": "thunderstorm",
+    "year": 1552.5521
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-08-01",
+    "position": "Regensburg",
+    "coding": "wine & general development & overall...",
+    "year": 1552.5833
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-09",
+    "position": "Regensburg",
+    "coding": "temperature level",
+    "year": 1552.6667
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-09",
+    "position": "Regensburg",
+    "coding": "wind force",
+    "year": 1552.6667
+  },
+  {
+    "city": "Regensburg",
+    "period": "1552-09",
+    "position": "Regensburg",
+    "coding": "rain",
+    "year": 1552.6667
+  },
+  {
+    "city": "Regensburg",
+    "period": "1553-02-26",
+    "position": "Regensburg",
+    "coding": "temperature level",
+    "year": 1553.1518
+  },
+  {
+    "city": "Regensburg",
+    "period": "1553-02-26",
+    "position": "Regensburg",
+    "coding": "temperature level",
+    "year": 1553.1518
+  },
+  {
+    "city": "Regensburg",
+    "period": "1553-02-26",
+    "position": "Regensburg",
+    "coding": "snow & shortterm",
+    "year": 1553.1518
+  },
+  {
+    "city": "Regensburg",
+    "period": "1553-02-26",
+    "position": "Regensburg",
+    "coding": "snow & shortterm",
+    "year": 1553.1518
+  },
+  {
+    "city": "Regensburg",
+    "period": "1553-03-01",
+    "position": "Regensburg",
+    "coding": "snow & shortterm",
+    "year": 1553.1667
+  },
+  {
+    "city": "Regensburg",
+    "period": "1553-03-01",
+    "position": "Regensburg",
+    "coding": "temperature level",
+    "year": 1553.1667
+  },
+  {
+    "city": "Regensburg",
+    "period": "1553-03-01",
+    "position": "Regensburg",
+    "coding": "freezing temperatures",
+    "year": 1553.1667
+  },
+  {
+    "city": "Regensburg",
+    "period": "1553-03-01",
+    "position": "Regensburg",
+    "coding": "temperature level",
+    "year": 1553.1667
+  },
+  {
+    "city": "Regensburg",
+    "period": "1553-03-01",
+    "position": "Regensburg",
+    "coding": "freezing temperatures",
+    "year": 1553.1667
+  },
+  {
+    "city": "Regensburg",
+    "period": "1553-04-24",
+    "position": "Regensburg",
+    "coding": "snow",
+    "year": 1553.313
+  },
+  {
+    "city": "Regensburg",
+    "period": "1553-04-26",
+    "position": "Regensburg",
+    "coding": "snow",
+    "year": 1553.3185
+  },
+  {
+    "city": "Regensburg",
+    "period": "1553-04-26",
+    "position": "Regensburg",
+    "coding": "freezing temperatures",
+    "year": 1553.3185
+  },
+  {
+    "city": "Regensburg",
+    "period": "1553-05-18",
+    "position": "Regensburg",
+    "coding": "hail",
+    "year": 1553.3799
+  },
+  {
+    "city": "Regensburg",
+    "period": "1553-05-18 14:00",
+    "position": "Regensburg",
+    "coding": "rain & shortterm",
+    "year": 1553.3799
+  },
+  {
+    "city": "Regensburg",
+    "period": "1553-05-18 14:00",
+    "position": "Regensburg",
+    "coding": "rain & shortterm",
+    "year": 1553.3799
+  },
+  {
+    "city": "Regensburg",
+    "period": "1553-05-18 14:00",
+    "position": "Regensburg",
+    "coding": "wind direction",
+    "year": 1553.3799
+  },
+  {
+    "city": "Regensburg",
+    "period": "1553-05-18 14:00",
+    "position": "Regensburg",
+    "coding": "hail",
+    "year": 1553.3799
+  },
+  {
+    "city": "Regensburg",
+    "period": "1553-05-18 18:00",
+    "position": "Regensburg",
+    "coding": "cloud cover",
+    "year": 1553.3799
+  },
+  {
+    "city": "Regensburg",
+    "period": "1553-05-18 18:00",
+    "position": "Regensburg",
+    "coding": "thunderstorm",
+    "year": 1553.3799
+  },
+  {
+    "city": "Regensburg",
+    "period": "1553-05-18 18:00",
+    "position": "Regensburg",
+    "coding": "temperature level",
+    "year": 1553.3799
+  },
+  {
+    "city": "Regensburg",
+    "period": "1553-05-18 18:00",
+    "position": "Regensburg",
+    "coding": "rain & shortterm",
+    "year": 1553.3799
+  },
+  {
+    "city": "Regensburg",
+    "period": "1553-05-18 18:00",
+    "position": "Regensburg",
+    "coding": "hail & thunderstorm",
+    "year": 1553.3799
+  },
+  {
+    "city": "Regensburg",
+    "period": "1554-02-04",
+    "position": "Regensburg",
+    "coding": "temperature level",
+    "year": 1554.0916
+  },
+  {
+    "city": "Regensburg",
+    "period": "1554-02-04",
+    "position": "Regensburg",
+    "coding": "freezing temperatures",
+    "year": 1554.0916
+  },
+  {
+    "city": "Regensburg",
+    "period": "1554-03-09 14:00",
+    "position": "Regensburg",
+    "coding": "halo",
+    "year": 1554.1886
+  },
+  {
+    "city": "Regensburg",
+    "period": "1555-11-30",
+    "position": "Rhine",
+    "coding": "flood extent & flood intensity",
+    "year": 1555.9128
+  },
+  {
+    "city": "Regensburg",
+    "period": "1556-02-12",
+    "position": "Lindau",
+    "coding": "snow depth degree",
+    "year": 1556.1135
+  },
+  {
+    "city": "Regensburg",
+    "period": "1556-02-12",
+    "position": "Lindau",
+    "coding": "snow & shortterm",
+    "year": 1556.1135
+  },
+  {
+    "city": "Regensburg",
+    "period": "1556-07-16",
+    "position": "Lindau",
+    "coding": "harvest & oat & begin",
+    "year": 1556.5411
+  },
+  {
+    "city": "Regensburg",
+    "period": "1556-07-16",
+    "position": "Lindau",
+    "coding": "harvest & oat & begin",
+    "year": 1556.5411
+  },
+  {
+    "city": "Augsburg",
+    "period": "1561",
+    "position": "Augsburg",
+    "coding": "snow & shortterm",
+    "year": 1561.0
+  },
+  {
+    "city": "Augsburg",
+    "period": "1561",
+    "position": "Augsburg",
+    "coding": "temperature level",
+    "year": 1561.0
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-05-05",
+    "position": "Augsburg",
+    "coding": "temperature level",
+    "year": 1562.3443
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-05-05",
+    "position": "Augsburg",
+    "coding": "rain & shortterm",
+    "year": 1562.3443
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-05-06 03:00",
+    "position": "Augsburg",
+    "coding": "rain & shortterm",
+    "year": 1562.347
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-05-06 03:00",
+    "position": "Augsburg",
+    "coding": "thunderstorm",
+    "year": 1562.347
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-05-06 03:00",
+    "position": "Thierhaupten",
+    "coding": "hail & thunderstorm",
+    "year": 1562.347
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-05-06 03:00",
+    "position": "Westerhausen",
+    "coding": "thunderstorm",
+    "year": 1562.347
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-05-06 03:00",
+    "position": "Thierhaupten",
+    "coding": "thunderstorm",
+    "year": 1562.347
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-05-06 03:00",
+    "position": "Nordendorf",
+    "coding": "thunderstorm",
+    "year": 1562.347
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-05-06 03:00",
+    "position": "Nordendorf",
+    "coding": "rain & shortterm",
+    "year": 1562.347
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-05-06 03:00",
+    "position": "Westerhausen",
+    "coding": "rain & shortterm",
+    "year": 1562.347
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-05-06 03:00",
+    "position": "Thierhaupten",
+    "coding": "rain & shortterm",
+    "year": 1562.347
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-05-06 03:00",
+    "position": "Westerhausen",
+    "coding": "hail & thunderstorm",
+    "year": 1562.347
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-05-06 03:00",
+    "position": "Nordendorf",
+    "coding": "hail & thunderstorm",
+    "year": 1562.347
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-06-06",
+    "position": "Augsburg",
+    "coding": "rain & shortterm",
+    "year": 1562.4304
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-06-16",
+    "position": "Friedberg bei Augsburg",
+    "coding": "thunderstorm",
+    "year": 1562.4578
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-07-10",
+    "position": "Augsburg",
+    "coding": "thunderstorm",
+    "year": 1562.5247
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-08-02 22:00",
+    "position": "Augsburg",
+    "coding": "rain & shortterm",
+    "year": 1562.5861
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-08-02 22:00",
+    "position": "Augsburg",
+    "coding": "hail",
+    "year": 1562.5861
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-08-02 22:00",
+    "position": "Augsburg",
+    "coding": "hail",
+    "year": 1562.5861
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-08-02 22:00",
+    "position": "Augsburg",
+    "coding": "rain & shortterm",
+    "year": 1562.5861
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-08-02 22:00",
+    "position": "Augsburg",
+    "coding": "hail & thunderstorm",
+    "year": 1562.5861
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-08-02 22:00",
+    "position": "Gersthofen",
+    "coding": "hail & thunderstorm",
+    "year": 1562.5861
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-08-02 22:00",
+    "position": "Gersthofen",
+    "coding": "hail & thunderstorm",
+    "year": 1562.5861
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-08-02 23:00",
+    "position": "Lemwerder",
+    "coding": "cloud cover",
+    "year": 1562.5861
+  },
+  {
+    "city": "Augsburg",
+    "period": "1562-08-03 23:00",
+    "position": "Gersthofen",
+    "coding": "thunderstorm",
+    "year": 1562.5888
+  },
+  {
+    "city": "Augsburg",
+    "period": "1563-03-19",
+    "position": "Augsburg",
+    "coding": "wind force",
+    "year": 1563.216
+  },
+  {
+    "city": "Augsburg",
+    "period": "1563-03-19",
+    "position": "Augsburg",
+    "coding": "rain",
+    "year": 1563.216
+  },
+  {
+    "city": "Augsburg",
+    "period": "1563-03-19",
+    "position": "Augsburg",
+    "coding": "rain",
+    "year": 1563.216
+  },
+  {
+    "city": "Augsburg",
+    "period": "1563-03-20",
+    "position": "Augsburg",
+    "coding": "wind force",
+    "year": 1563.2187
+  },
+  {
+    "city": "Augsburg",
+    "period": "1563-03-20",
+    "position": "Augsburg",
+    "coding": "rain",
+    "year": 1563.2187
+  },
+  {
+    "city": "Augsburg",
+    "period": "1563-05-28 19:00",
+    "position": "Großaitingen",
+    "coding": "thunderstorm",
+    "year": 1563.4073
+  },
+  {
+    "city": "Augsburg",
+    "period": "1563-06",
+    "position": "Augsburg",
+    "coding": "temperature level",
+    "year": 1563.4167
+  },
+  {
+    "city": "Augsburg",
+    "period": "1563-06",
+    "position": "Augsburg",
+    "coding": "thunderstorm",
+    "year": 1563.4167
+  },
+  {
+    "city": "Augsburg",
+    "period": "1563-06-01",
+    "position": "Augsburg",
+    "coding": "temperature level",
+    "year": 1563.4167
+  },
+  {
+    "city": "Augsburg",
+    "period": "1565-01-08",
+    "position": "Augsburg",
+    "coding": "rainbow",
+    "year": 1565.0192
+  },
+  {
+    "city": "Nürnberg",
+    "period": "1564-01-22",
+    "position": "Nuremberg",
+    "coding": "flood extent & flood intensity",
+    "year": 1564.0575
+  },
+  {
+    "city": "Nürnberg",
+    "period": "1564-01-25",
+    "position": "Nuremberg",
+    "coding": "flood extent & flood intensity",
+    "year": 1564.0658
+  },
+  {
+    "city": "Nürnberg",
+    "period": "1564-03-05",
+    "position": "Main",
+    "coding": "flood intensity",
+    "year": 1564.1776
+  },
+  {
+    "city": "Nürnberg",
+    "period": "1564",
+    "position": "Main",
+    "coding": "ice formation & rivers",
+    "year": 1564.0
+  },
+  {
+    "city": "Nürnberg",
+    "period": "1564",
+    "position": "Rhine",
+    "coding": "ice formation & rivers",
+    "year": 1564.0
+  },
+  {
+    "city": "Nürnberg",
+    "period": "1565-01-01",
+    "position": "Nuremberg",
+    "coding": "temperature level",
+    "year": 1565.0
+  },
+  {
+    "city": "Nürnberg",
+    "period": "1565-02-01",
+    "position": "Nuremberg",
+    "coding": "snowmelt",
+    "year": 1565.0833
+  },
+  {
+    "city": "Nürnberg",
+    "period": "1565-02-01",
+    "position": "Nuremberg",
+    "coding": "thawing",
+    "year": 1565.0833
+  },
+  {
+    "city": "Nürnberg",
+    "period": "1565-02-11 18:00",
+    "position": "Nuremberg",
+    "coding": "flood extent & flood intensity",
+    "year": 1565.1107
+  },
+  {
+    "city": "Nürnberg",
+    "period": "1565-03-13 02:00",
+    "position": "Nuremberg",
+    "coding": "flood extent & flood intensity",
+    "year": 1565.1995
+  },
+  {
+    "city": "Nürnberg",
+    "period": "1565-03-14",
+    "position": "Aller",
+    "coding": "flood extent & flood intensity",
+    "year": 1565.2023
+  },
+  {
+    "city": "Nürnberg",
+    "period": "1566-01",
+    "position": "Nuremberg",
+    "coding": "rain & shortterm",
+    "year": 1566.0
+  },
+  {
+    "city": "Nürnberg",
+    "period": "1566-01-26",
+    "position": "Pegnitz",
+    "coding": "flood extent & flood intensity",
+    "year": 1566.0685
+  },
+  {
+    "city": "Zürich",
+    "period": "1571-01-01",
+    "position": "Switzerland",
+    "coding": "temperature level",
+    "year": 1571.0
+  },
+  {
+    "city": "Zürich",
+    "period": "1571-01-01",
+    "position": "Switzerland",
+    "coding": "shortterm & snow",
+    "year": 1571.0
+  },
+  {
+    "city": "Magdeburg",
+    "period": "1612-01",
+    "position": "Magdeburg",
+    "coding": "thunderstorm",
+    "year": 1612.0
+  },
+  {
+    "city": "Magdeburg",
+    "period": "1612-12-28",
+    "position": "Meißen",
+    "coding": "flood intensity",
+    "year": 1612.9906
+  },
+  {
+    "city": "Magdeburg",
+    "period": "1612-12-28",
+    "position": "Meißen",
+    "coding": "longterm",
+    "year": 1612.9906
+  },
+  {
+    "city": "Magdeburg",
+    "period": "1612-12-28",
+    "position": "Meißen",
+    "coding": "rain & shortterm",
+    "year": 1612.9906
+  },
+  {
+    "city": "Magdeburg",
+    "period": "1612-12-28",
+    "position": "Meißen",
+    "coding": "longterm",
+    "year": 1612.9906
+  },
+  {
+    "city": "Magdeburg",
+    "period": "1613-05-29",
+    "position": "England",
+    "coding": "rain & shortterm",
+    "year": 1613.41
+  },
+  {
+    "city": "Magdeburg",
+    "period": "1613-05-29",
+    "position": "England",
+    "coding": "flood intensity",
+    "year": 1613.41
+  },
+  {
+    "city": "Magdeburg",
+    "period": "1613-05-29",
+    "position": "Thüringen (Landschaft)",
+    "coding": "flood intensity",
+    "year": 1613.41
+  },
+  {
+    "city": "Magdeburg",
+    "period": "1613-05-29",
+    "position": "Thüringen (Landschaft)",
+    "coding": "rain & shortterm",
+    "year": 1613.41
+  },
+  {
+    "city": "Magdeburg",
+    "period": "1615-08-03",
+    "position": "Zerbst",
+    "coding": "shortterm & rain",
+    "year": 1615.5888
+  },
+  {
+    "city": "Magdeburg",
+    "period": "1615-08-03",
+    "position": "Magdeburg",
+    "coding": "wind force",
+    "year": 1615.5888
+  },
+  {
+    "city": "Magdeburg",
+    "period": "1615-08-03",
+    "position": "Magdeburg",
+    "coding": "hail & thunderstorm",
+    "year": 1615.5888
+  },
+  {
+    "city": "Magdeburg",
+    "period": "1615-08-03",
+    "position": "Magdeburg",
+    "coding": "rain & shortterm",
+    "year": 1615.5888
+  },
+  {
+    "city": "Magdeburg",
+    "period": "1615-08-03",
+    "position": "Magdeburg",
+    "coding": "rain & shortterm",
+    "year": 1615.5888
+  },
+  {
+    "city": "Magdeburg",
+    "period": "1615-08-03",
+    "position": "Zerbst",
+    "coding": "longterm",
+    "year": 1615.5888
+  },
+  {
+    "city": "Magdeburg",
+    "period": "1615-08-03",
+    "position": "Magdeburg",
+    "coding": "longterm",
+    "year": 1615.5888
+  },
+  {
+    "city": "Magdeburg",
+    "period": "1615-08-03",
+    "position": "Magdeburg",
+    "coding": "thunderstorm",
+    "year": 1615.5888
+  },
+  {
+    "city": "Magdeburg",
+    "period": "1615",
+    "position": "Magdeburg",
+    "coding": "snow & shortterm",
+    "year": 1615.0
+  },
+  {
+    "city": "Magdeburg",
+    "period": "1615",
+    "position": "Magdeburg",
+    "coding": "temperature level",
+    "year": 1615.0
+  },
+  {
+    "city": "Freiberg",
+    "period": "1635-01",
+    "position": "Freiberg",
+    "coding": "temperature level",
+    "year": 1635.0
+  },
+  {
+    "city": "Freiberg",
+    "period": "1635-01",
+    "position": "Freiberg",
+    "coding": "ice formation & rivers",
+    "year": 1635.0
+  },
+  {
+    "city": "Freiberg",
+    "period": "1639-01",
+    "position": "Freiberg",
+    "coding": "plants & general development &...",
+    "year": 1639.0
+  },
+  {
+    "city": "Freiberg",
+    "period": "1639-01",
+    "position": "Freiberg",
+    "coding": "grain & harvest quantity",
+    "year": 1639.0
+  },
+  {
+    "city": "Freiberg",
+    "period": "1639-01",
+    "position": "Freiberg",
+    "coding": "price & kind of goods & plants",
+    "year": 1639.0
+  },
+  {
+    "city": "Freiberg",
+    "period": "1639-03-13 06:00",
+    "position": "Freiberg",
+    "coding": "cloud cover",
+    "year": 1639.1995
+  },
+  {
+    "city": "Freiberg",
+    "period": "1639-03-13 14:00",
+    "position": "Freiberg",
+    "coding": "fog",
+    "year": 1639.1995
+  },
+  {
+    "city": "Jena",
+    "period": "1644-04-26",
+    "position": "Jena",
+    "coding": "temperature level",
+    "year": 1644.3185
+  },
+  {
+    "city": "Jena",
+    "period": "1644-04-26",
+    "position": "Jena",
+    "coding": "fruits & blossoming",
+    "year": 1644.3185
+  },
+  {
+    "city": "Jena",
+    "period": "1644-04-26",
+    "position": "Jena",
+    "coding": "snow",
+    "year": 1644.3185
+  },
+  {
+    "city": "Jena",
+    "period": "1644-05-01",
+    "position": "Jena",
+    "coding": "wine & insects",
+    "year": 1644.3333
+  },
+  {
+    "city": "Jena",
+    "period": "1644-11-01",
+    "position": "Jena",
+    "coding": "price & kind of goods & rye",
+    "year": 1644.8333
+  },
+  {
+    "city": "Jena",
+    "period": "1644-12-01",
+    "position": "Jena",
+    "coding": "price & kind of goods & oat",
+    "year": 1644.9167
+  },
+  {
+    "city": "Jena",
+    "period": "1644-12-01",
+    "position": "Jena",
+    "coding": "price & kind of goods & rye",
+    "year": 1644.9167
+  },
+  {
+    "city": "Jena",
+    "period": "1644-12-01",
+    "position": "Jena",
+    "coding": "price & kind of goods & barley",
+    "year": 1644.9167
+  },
+  {
+    "city": "Jena",
+    "period": "1648-02-13",
+    "position": "Jena",
+    "coding": "rain",
+    "year": 1648.1162
+  },
+  {
+    "city": "Jena",
+    "period": "1648-02-13",
+    "position": "Jena",
+    "coding": "thunderstorm",
+    "year": 1648.1162
+  },
+  {
+    "city": "Jena",
+    "period": "1648-02-13",
+    "position": "Jena",
+    "coding": "cloud cover",
+    "year": 1648.1162
+  },
+  {
+    "city": "Jena",
+    "period": "1648-02-14",
+    "position": "Jena",
+    "coding": "cloud cover",
+    "year": 1648.1189
+  },
+  {
+    "city": "Jena",
+    "period": "1648-02-14",
+    "position": "Jena",
+    "coding": "rain",
+    "year": 1648.1189
+  },
+  {
+    "city": "Jena",
+    "period": "1648-11-24",
+    "position": "Jena",
+    "coding": "price & kind of goods & barley",
+    "year": 1648.8963
+  },
+  {
+    "city": "Jena",
+    "period": "1648-11-24",
+    "position": "Jena",
+    "coding": "price & kind of goods & rye",
+    "year": 1648.8963
+  },
+  {
+    "city": "Jena",
+    "period": "1648-11-24",
+    "position": "Jena",
+    "coding": "price & kind of goods & oat",
+    "year": 1648.8963
+  },
+  {
+    "city": "Leipzig",
+    "period": "1702-07-01",
+    "position": "Schlesien",
+    "coding": "flood extent & flood intensity",
+    "year": 1702.5
+  },
+  {
+    "city": "Leipzig",
+    "period": "1703-12-06",
+    "position": "Neumark",
+    "coding": "wind force",
+    "year": 1703.9304
+  },
+  {
+    "city": "Leipzig",
+    "period": "1703-12-08",
+    "position": "Europa",
+    "coding": "wind direction",
+    "year": 1703.9358
+  },
+  {
+    "city": "Leipzig",
+    "period": "1703-12-08",
+    "position": "Europa",
+    "coding": "wind force",
+    "year": 1703.9358
+  },
+  {
+    "city": "Leipzig",
+    "period": "1704-02-06 09:00",
+    "position": "Leipzig",
+    "coding": "halo",
+    "year": 1704.097
+  },
+  {
+    "city": "Leipzig",
+    "period": "1704-08-30",
+    "position": "Leipzig",
+    "coding": "thunderstorm",
+    "year": 1704.6628
+  },
+  {
+    "city": "Leipzig",
+    "period": "1704-11-15 14:00",
+    "position": "Leipzig",
+    "coding": "rain & shortterm",
+    "year": 1704.8717
+  },
+  {
+    "city": "Leipzig",
+    "period": "1704-11-15 14:00",
+    "position": "Leipzig",
+    "coding": "thunderstorm",
+    "year": 1704.8717
+  },
+  {
+    "city": "Leipzig",
+    "period": "1704-11-15 14:00",
+    "position": "Leipzig",
+    "coding": "thunderstorm",
+    "year": 1704.8717
+  },
+  {
+    "city": "Leipzig",
+    "period": "1704-11-15 14:00",
+    "position": "Leipzig",
+    "coding": "temperature level",
+    "year": 1704.8717
+  },
+  {
+    "city": "Leipzig",
+    "period": "1706-01",
+    "position": "Leipzig",
+    "coding": "fruits & harvest quantity",
+    "year": 1706.0
+  },
+  {
+    "city": "Leipzig",
+    "period": "1706-01",
+    "position": "Leipzig",
+    "coding": "price & kind of goods & plants",
+    "year": 1706.0
+  },
+  {
+    "city": "Leipzig",
+    "period": "1706-05-06",
+    "position": "Leipzig",
+    "coding": "wind force",
+    "year": 1706.347
+  },
+  {
+    "city": "Leipzig",
+    "period": "1706-05-06",
+    "position": "Leipzig",
+    "coding": "rain & shortterm",
+    "year": 1706.347
+  },
+  {
+    "city": "Leipzig",
+    "period": "1706-05-06",
+    "position": "Leipzig",
+    "coding": "temperature level",
+    "year": 1706.347
+  },
+  {
+    "city": "Leipzig",
+    "period": "1706-05-06",
+    "position": "Leipzig",
+    "coding": "hail & thunderstorm",
+    "year": 1706.347
+  },
+  {
+    "city": "Leipzig",
+    "period": "1706-09",
+    "position": "Leipzig",
+    "coding": "temperature level",
+    "year": 1706.6667
+  },
+  {
+    "city": "Leipzig",
+    "period": "1706-10-01",
+    "position": "Leipzig",
+    "coding": "thunderstorm",
+    "year": 1706.75
+  },
+  {
+    "city": "Leipzig",
+    "period": "1706-12-01",
+    "position": "Leipzig",
+    "coding": "temperature level",
+    "year": 1706.9167
+  },
+  {
+    "city": "Leipzig",
+    "period": "1707-09-09 07:00",
+    "position": "Leipzig",
+    "coding": "thunderstorm",
+    "year": 1707.6886
+  },
+  {
+    "city": "Leipzig",
+    "period": "1707-09-09 07:00",
+    "position": "Leipzig",
+    "coding": "cloud cover",
+    "year": 1707.6886
+  },
+  {
+    "city": "Leipzig",
+    "period": "1707-09-09 07:00",
+    "position": "Leipzig",
+    "coding": "thunderstorm",
+    "year": 1707.6886
+  },
+  {
+    "city": "Leipzig",
+    "period": "1707-09-09 07:00",
+    "position": "Leipzig",
+    "coding": "rain & shortterm",
+    "year": 1707.6886
+  },
+  {
+    "city": "Ansbach",
+    "period": "1748-09-29",
+    "position": "Ansbach",
+    "coding": "thunderstorm",
+    "year": 1748.7434
+  }
+];
