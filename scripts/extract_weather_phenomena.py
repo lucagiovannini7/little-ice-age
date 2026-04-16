@@ -54,6 +54,13 @@ WEATHER_TERMS = {
     "Sommer":           ["Sommer"],
     "Herbst":           ["Herbst"],
     "Frühling/Frühjahr/Lenz": ["Frühling", "Fruehling", "Frühjahr", "Fruehjahr", "Lenz"],
+    "kalt":                 ["kalt"],
+    "heiß":                 ["heiß", "heiss"],
+    "Schlossen/Schloßen":   ["Schlossen", "Schloßen"],
+    "Wasser":               ["Wasser"],
+    "Sonne":                ["Sonne"],
+    "Verdunkelung/Dunkelheit": ["Verdunkelung", "Dunkelheit"],
+    "Wolke":                ["Wolke"],
 }
 
 # Pre-compile one regex per canonical term (all variants OR-joined)

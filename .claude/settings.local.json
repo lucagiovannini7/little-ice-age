@@ -25,7 +25,9 @@
       "Bash(curl -s \"https://api.github.com/repos/wldeh/bible-api/contents/bibles/en-kjv/books?per_page=100\")",
       "Bash(curl -s \"https://api.github.com/repos/wldeh/bible-api/contents/bibles/en-kjv/books/genesis\")",
       "Bash(python3 -c \"import sys, json; data = json.load\\(sys.stdin\\); [print\\(f\\\\\"{item['name']}\\\\\"\\) for item in data if isinstance\\(item, dict\\)]\")",
-      "Bash(curl -s \"https://raw.githubusercontent.com/wldeh/bible-api/main/bibles/en-kjv/books.json\")"
+      "Bash(curl -s \"https://raw.githubusercontent.com/wldeh/bible-api/main/bibles/en-kjv/books.json\")",
+      "Bash(move /Y bible-citations-new.csv bible-citations.csv)",
+      "Bash(python -c \"import os,shutil; os.replace\\('bible-citations-new.csv','bible-citations.csv'\\); print\\('ok'\\)\")"
     ]
   }
 }

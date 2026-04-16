@@ -21,8 +21,11 @@ from pathlib import Path
 
 JSON_DIR   = 'json'
 OUTPUT_CSV = 'bible-citations.csv'
-API_BASE   = ('https://cdn.jsdelivr.net/gh/wldeh/bible-api'
-              '/bibles/en-kjv/books/{book}/chapters/{ch}/verses/{v}.json')
+OUTPUT_TMP = 'bible-citations-new.csv'
+API_BASE_CHAP  = ('https://cdn.jsdelivr.net/gh/wldeh/bible-api'
+                  '/bibles/en-kjv/books/{book}/chapters/{ch}.json')
+API_BASE_VERSE = ('https://cdn.jsdelivr.net/gh/wldeh/bible-api'
+                  '/bibles/en-kjv/books/{book}/chapters/{ch}/verses/{v}.json')
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 1.  Book table   (regex, canonical_label, en_slug_for_api)
@@ -73,7 +76,7 @@ BOOKS = [
     # ── Minor Prophets ───────────────────────────────────────────────────────
     (r'Hosea|Hos',                                         'Hos',      'hosea'),
     (r'Joel',                                              'Joel',     'joel'),
-    (r'Amos|(?<=\s)Am(?=\.\s*\d)',                        'Am',       'amos'),
+    (r'Amos|Am(?=\.\s*\d)',                                'Am',       'amos'),
     (r'Obad(?:ja)?|Abd',                                   'Ob',       'obadiah'),
     (r'Jonas?',                                            'Jona',     'jonah'),
     (r'Micha?|Mic',                                        'Mi',       'micah'),
@@ -118,6 +121,58 @@ _MOSE_SLUGS = {
     '1': 'genesis', '2': 'exodus', '3': 'leviticus',
     '4': 'numbers', '5': 'deuteronomy',
 }
+
+# ─────────────────────────────────────────────────────────────────────────────
+# API slug → standard English display name (for STANDARDISED CITATION column)
+# ─────────────────────────────────────────────────────────────────────────────
+SLUG_TO_DISPLAY = {
+    # Pentateuch
+    'genesis': 'Genesis', 'exodus': 'Exodus', 'leviticus': 'Leviticus',
+    'numbers': 'Numbers', 'deuteronomy': 'Deuteronomy',
+    # Historical
+    'joshua': 'Joshua', 'judges': 'Judges', 'ruth': 'Ruth',
+    '1samuel': '1 Samuel', '2samuel': '2 Samuel',
+    '1kings': '1 Kings',  '2kings': '2 Kings',
+    '1chronicles': '1 Chronicles', '2chronicles': '2 Chronicles',
+    'ezra': 'Ezra', 'nehemiah': 'Nehemiah', 'esther': 'Esther',
+    # Wisdom
+    'job': 'Job', 'psalms': 'Ps', 'proverbs': 'Prov',
+    'ecclesiastes': 'Eccl', 'songofsolomon': 'Song',
+    # Apocrypha
+    'wisdom': 'Wis', 'ecclesiasticus': 'Sir',
+    # Major Prophets
+    'isaiah': 'Isa', 'jeremiah': 'Jer', 'lamentations': 'Lam',
+    'ezekiel': 'Ezek', 'daniel': 'Dan',
+    # Minor Prophets
+    'hosea': 'Hos', 'joel': 'Joel', 'amos': 'Amos',
+    'obadiah': 'Obad', 'jonah': 'Jonah', 'micah': 'Mic',
+    'nahum': 'Nah', 'habakkuk': 'Hab', 'zephaniah': 'Zeph',
+    'haggai': 'Hag', 'zechariah': 'Zech', 'malachi': 'Mal',
+    # NT Gospels & Acts
+    'matthew': 'Matt', 'mark': 'Mark', 'luke': 'Luke',
+    'john': 'John', 'acts': 'Acts',
+    # NT Epistles
+    'romans': 'Rom',
+    '1corinthians': '1 Cor', '2corinthians': '2 Cor',
+    'galatians': 'Gal', 'ephesians': 'Eph', 'philippians': 'Phil',
+    'colossians': 'Col', 'philemon': 'Phlm',
+    '1thessalonians': '1 Thess', '2thessalonians': '2 Thess',
+    '1timothy': '1 Tim',   '2timothy': '2 Tim',
+    'titus': 'Titus', 'hebrews': 'Heb',
+    'james': 'Jas',
+    '1peter': '1 Pet', '2peter': '2 Pet',
+    '1john': '1 John', '2john': '2 John', '3john': '3 John',
+    'jude': 'Jude', 'revelation': 'Rev',
+}
+
+def make_std_citation(book_en: str, chapter, verse) -> str:
+    """Return e.g. 'Job 38' or 'Rom 13:13', empty string if data missing."""
+    if not book_en or not chapter:
+        return ''
+    display = SLUG_TO_DISPLAY.get(book_en, book_en.title())
+    if verse:
+        return f'{display} {chapter}:{verse}'
+    return f'{display} {chapter}'
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 2.  Assemble master extraction regex
@@ -314,24 +369,37 @@ for path in json_files:
             chapter = None          # safety net
         url = ''
         if book_en and chapter:
-            v = verse if verse else 1
-            url = API_BASE.format(book=book_en, ch=chapter, v=v)
+            if verse:
+                url = API_BASE_VERSE.format(book=book_en, ch=chapter, v=verse)
+            else:
+                url = API_BASE_CHAP.format(book=book_en, ch=chapter)
         rows.append({
-            'SLUG':          slug,
-            'BIBLE CITATION': c,
-            'BOOK_EN':       book_en or '',
-            'CHAPTER':       chapter or '',
-            'VERSE':         verse   or '',
-            'URL':           url,
+            'SLUG':                  slug,
+            'BIBLE CITATION':        c,
+            'STANDARDISED CITATION': make_std_citation(book_en, chapter, verse),
+            'BOOK_EN':               book_en or '',
+            'CHAPTER':               chapter or '',
+            'VERSE':                 verse   or '',
+            'URL':                   url,
         })
 
-FIELDS = ['SLUG', 'BIBLE CITATION', 'BOOK_EN', 'CHAPTER', 'VERSE', 'URL']
-with open(OUTPUT_CSV, 'w', encoding='utf-8', newline='') as fh:
+import os, shutil
+FIELDS = ['SLUG', 'BIBLE CITATION', 'STANDARDISED CITATION', 'BOOK_EN', 'CHAPTER', 'VERSE', 'URL']
+with open(OUTPUT_TMP, 'w', encoding='utf-8', newline='') as fh:
     writer = csv.DictWriter(fh, fieldnames=FIELDS)
     writer.writeheader()
     writer.writerows(rows)
+# Replace original (works even if OUTPUT_CSV is locked by another process on write)
+try:
+    if os.path.exists(OUTPUT_CSV):
+        os.replace(OUTPUT_TMP, OUTPUT_CSV)
+    else:
+        shutil.move(OUTPUT_TMP, OUTPUT_CSV)
+    out_name = OUTPUT_CSV
+except PermissionError:
+    out_name = OUTPUT_TMP  # leave as -new.csv if original still locked
 
-print(f'\nDone — {len(rows)} citations -> {OUTPUT_CSV}')
+print(f'\nDone — {len(rows)} citations -> {out_name}')
 
 # Quick quality summary
 no_book = sum(1 for r in rows if not r['BOOK_EN'])
