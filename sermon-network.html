@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Little Ice Age — Sermon Network</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black:  #111111;
+    --dark:   #1a1a1a;
+    --panel:  #161616;
+    --border: #2a2a2a;
+    --red:    #8b1a1a;
+    --red-lt: #b52222;
+    --grey1:  #888888;
+    --grey2:  #555555;
+    --text:   #cccccc;
+    --white:  #f0f0f0;
+  }
+
+  html, body {
+    height: 100vh; background: var(--black); color: var(--text);
+    font-family: Georgia, serif;
+    display: flex; flex-direction: column;
+  }
+
+  header {
+    flex-shrink: 0;
+    height: 52px; background: var(--dark); border-bottom: 2px solid var(--red);
+    display: flex; align-items: center; padding: 0 24px; gap: 12px;
+  }
+  header h1 {
+    font-size: 1rem; font-weight: normal; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--white);
+  }
+  header .sub { font-size: .8rem; color: var(--grey1); font-style: italic; }
+  header .back {
+    margin-left: auto;
+    font-size: .75rem; color: var(--grey2);
+    font-family: 'Courier New', monospace; letter-spacing: .07em;
+    text-transform: uppercase; text-decoration: none;
+    transition: color .15s;
+  }
+  header .back:hover { color: var(--red-lt); }
+
+  /* ── Placeholder body ── */
+  .placeholder {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 1.4rem; padding: 3rem 2rem; text-align: center;
+  }
+  .placeholder .label {
+    font-family: 'Courier New', monospace;
+    font-size: .72rem; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--red-lt);
+  }
+  .placeholder h2 {
+    font-size: 1.3rem; font-weight: normal;
+    color: var(--white); letter-spacing: .06em;
+  }
+  .placeholder p {
+    max-width: 500px;
+    font-size: .9rem; color: var(--grey1);
+    font-style: italic; line-height: 1.7;
+  }
+  .placeholder .badge {
+    display: inline-block;
+    background: var(--panel); border: 1px solid var(--border);
+    border-left: 3px solid var(--red);
+    padding: .55rem 1.2rem;
+    font-family: 'Courier New', monospace;
+    font-size: .78rem; color: var(--grey2);
+    letter-spacing: .1em; text-transform: uppercase;
+  }
+
+  /* Decorative grid lines to suggest a graph */
+  .graph-hint {
+    position: relative; width: 340px; height: 200px;
+    opacity: .18;
+  }
+  .graph-hint svg { width: 100%; height: 100%; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Little Ice Age</h1>
+  <span class="sub">Sermon Network</span>
+  <a class="back" href="index.html">&#8592; Home</a>
+</header>
+
+<div class="placeholder">
+  <span class="label">Coming soon</span>
+  <h2>Sermon Network</h2>
+
+  <!-- Ghost graph hint -->
+  <div class="graph-hint" aria-hidden="true">
+    <svg viewBox="0 0 340 200" xmlns="http://www.w3.org/2000/svg"
+         fill="none" stroke="#8b1a1a" stroke-width="1.5">
+      <!-- nodes -->
+      <circle cx="170" cy="100" r="10"/>
+      <circle cx="60"  cy="50"  r="7"/>
+      <circle cx="280" cy="55"  r="7"/>
+      <circle cx="50"  cy="155" r="6"/>
+      <circle cx="290" cy="148" r="6"/>
+      <circle cx="170" cy="170" r="5"/>
+      <circle cx="120" cy="100" r="5"/>
+      <circle cx="220" cy="105" r="5"/>
+      <!-- edges -->
+      <line x1="170" y1="100" x2="60"  y2="50"/>
+      <line x1="170" y1="100" x2="280" y2="55"/>
+      <line x1="170" y1="100" x2="50"  y2="155"/>
+      <line x1="170" y1="100" x2="290" y2="148"/>
+      <line x1="170" y1="100" x2="170" y2="170"/>
+      <line x1="170" y1="100" x2="120" y2="100"/>
+      <line x1="170" y1="100" x2="220" y2="105"/>
+      <line x1="60"  y1="50"  x2="120" y2="100"/>
+      <line x1="280" y1="55"  x2="220" y2="105"/>
+      <line x1="50"  y1="155" x2="170" y2="170"/>
+      <line x1="290" y1="148" x2="170" y2="170"/>
+    </svg>
+  </div>
+
+  <p>
+    A network visualisation of Bible citation co-occurrence across the sermon corpus,
+    built from <code style="font-size:.85em;color:var(--grey2)">metadata/network-sermon-bible-edges.csv</code>.
+    Nodes represent sermons and scripture passages; edges encode shared references.
+  </p>
+  <span class="badge">Placeholder &mdash; visualisation in development</span>
+</div>
+
+</body>
+</html>

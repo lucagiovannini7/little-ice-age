@@ -4,8 +4,8 @@ build_phenomena.py
 ------------------
 STAGE 2 of the data pipeline (phenomena branch).
 Reads   json/*.json          (slug + text fields)
-Writes  metadata/sermon-phenomena.csv  (SLUG, FILENAME, PHENOMENON)
-Writes  phenomena_data.js              (const PHENOMENA = {slug: [...], ...})
+Writes  metadata/sermon-weather-phenomena.csv  (SERMON_SLUG, JSON_FILE, WEATHER_PHENOMENON)
+Writes  phenomena_data.js                      (const PHENOMENA = {slug: [...], ...})
 
 No intermediate results.csv required — extraction is done inline.
 
@@ -18,7 +18,7 @@ import os
 import re
 
 JSON_DIR   = 'json'
-OUTPUT_CSV = 'metadata/sermon-phenomena.csv'
+OUTPUT_CSV = 'metadata/sermon-weather-phenomena.csv'
 OUTPUT_JS  = 'phenomena_data.js'
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -108,14 +108,14 @@ for fname in json_files:
     print(f'{fname}: {len(phenomena)} phenomenon/a')
 
     for ph in phenomena:
-        rows.append({'SLUG': slug, 'FILENAME': fname, 'PHENOMENON': ph})
+        rows.append({'SERMON_SLUG': slug, 'JSON_FILE': fname, 'WEATHER_PHENOMENON': ph})
     if phenomena:
         phenomena_map[slug] = phenomena
 
-# ── Write sermon-phenomena.csv ────────────────────────────────────────────────
+# ── Write sermon-weather-phenomena.csv ────────────────────────────────────────
 os.makedirs('metadata', exist_ok=True)
 with open(OUTPUT_CSV, 'w', encoding='utf-8', newline='') as fh:
-    writer = csv.DictWriter(fh, fieldnames=['SLUG', 'FILENAME', 'PHENOMENON'])
+    writer = csv.DictWriter(fh, fieldnames=['SERMON_SLUG', 'JSON_FILE', 'WEATHER_PHENOMENON'])
     writer.writeheader()
     writer.writerows(rows)
 print(f'\nWritten {len(rows)} rows -> {OUTPUT_CSV}')

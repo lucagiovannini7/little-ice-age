@@ -1,4 +1,4 @@
-CITY,PERIOD,POSITION,CODING
+QUERY_CITY,DATE,LOCATION,EVENT_TYPE
 Regensburg,1551,Regensburg,clouds
 Regensburg,1551,Regensburg,food market developments
 Regensburg,1551,Regensburg,temperature

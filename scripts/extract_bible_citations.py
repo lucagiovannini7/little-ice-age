@@ -4,9 +4,9 @@ extract_bible_citations.py
 --------------------------
 STAGE 2 of the data pipeline (Bible citations branch).
 Reads   json/*.json          (slug + text fields)
-Writes  metadata/bible-citations.csv   (SLUG, BIBLE CITATION, STANDARDISED CITATION,
-                                         BOOK_EN, CHAPTER, VERSE, URL)
-Writes  metadata/gephi-edges.csv       (Source, Target — bipartite edge list for Gephi)
+Writes  metadata/sermon-bible-references.csv  (SERMON_SLUG, CITATION_RAW, CITATION,
+                                                BOOK_SLUG, CHAPTER, VERSE, API_URL)
+Writes  metadata/network-sermon-bible-edges.csv  (Source, Target — bipartite edge list for Gephi)
 
 Handles Early New High German (Frühneuhochdeutsch) orthographic variants,
 including Roman-numeral chapter numbers.
@@ -18,8 +18,8 @@ import re, json, csv, os
 from pathlib import Path
 
 JSON_DIR   = 'json'
-OUTPUT_CSV = 'metadata/bible-citations.csv'
-GEPHI_CSV  = 'metadata/gephi-edges.csv'
+OUTPUT_CSV = 'metadata/sermon-bible-references.csv'
+GEPHI_CSV  = 'metadata/network-sermon-bible-edges.csv'
 API_BASE_CHAP  = ('https://cdn.jsdelivr.net/gh/wldeh/bible-api'
                   '/bibles/en-kjv/books/{book}/chapters/{ch}.json')
 API_BASE_VERSE = ('https://cdn.jsdelivr.net/gh/wldeh/bible-api'
@@ -372,19 +372,19 @@ for path in json_files:
             else:
                 url = API_BASE_CHAP.format(book=book_en, ch=chapter)
         rows.append({
-            'SLUG':                  slug,
-            'BIBLE CITATION':        c,
-            'STANDARDISED CITATION': make_std_citation(book_en, chapter, verse),
-            'BOOK_EN':               book_en or '',
-            'CHAPTER':               chapter or '',
-            'VERSE':                 verse   or '',
-            'URL':                   url,
+            'SERMON_SLUG':  slug,
+            'CITATION_RAW': c,
+            'CITATION':     make_std_citation(book_en, chapter, verse),
+            'BOOK_SLUG':    book_en or '',
+            'CHAPTER':      chapter or '',
+            'VERSE':        verse   or '',
+            'API_URL':      url,
         })
 
 os.makedirs('metadata', exist_ok=True)
 
-# ── Write bible-citations.csv ─────────────────────────────────────────────────
-FIELDS = ['SLUG', 'BIBLE CITATION', 'STANDARDISED CITATION', 'BOOK_EN', 'CHAPTER', 'VERSE', 'URL']
+# ── Write sermon-bible-references.csv ────────────────────────────────────────
+FIELDS = ['SERMON_SLUG', 'CITATION_RAW', 'CITATION', 'BOOK_SLUG', 'CHAPTER', 'VERSE', 'API_URL']
 with open(OUTPUT_CSV, 'w', encoding='utf-8', newline='') as fh:
     writer = csv.DictWriter(fh, fieldnames=FIELDS)
     writer.writeheader()
@@ -392,17 +392,17 @@ with open(OUTPUT_CSV, 'w', encoding='utf-8', newline='') as fh:
 print(f'\nDone — {len(rows)} citations -> {OUTPUT_CSV}')
 
 # Quick quality summary
-no_book = sum(1 for r in rows if not r['BOOK_EN'])
+no_book = sum(1 for r in rows if not r['BOOK_SLUG'])
 no_chap = sum(1 for r in rows if not r['CHAPTER'])
 has_ver = sum(1 for r in rows if r['VERSE'])
 print(f'  with book:    {len(rows)-no_book}/{len(rows)}')
 print(f'  with chapter: {len(rows)-no_chap}/{len(rows)}')
 print(f'  with verse:   {has_ver}/{len(rows)}')
 
-# ── Write gephi-edges.csv ─────────────────────────────────────────────────────
+# ── Write network-sermon-bible-edges.csv ─────────────────────────────────────
 gephi_rows = [
-    {'Source': r['SLUG'], 'Target': r['STANDARDISED CITATION']}
-    for r in rows if r['STANDARDISED CITATION']
+    {'Source': r['SERMON_SLUG'], 'Target': r['CITATION']}
+    for r in rows if r['CITATION']
 ]
 with open(GEPHI_CSV, 'w', encoding='utf-8', newline='') as fh:
     writer = csv.DictWriter(fh, fieldnames=['Source', 'Target'])

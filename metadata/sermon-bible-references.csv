@@ -1,4 +1,4 @@
-SLUG,BIBLE CITATION,STANDARDISED CITATION,BOOK_EN,CHAPTER,VERSE,URL
+SERMON_SLUG,CITATION_RAW,CITATION,BOOK_SLUG,CHAPTER,VERSE,API_URL
 1556-roerer-ein-predig-von,Hiob am 32,Job 32,job,32,,https://cdn.jsdelivr.net/gh/wldeh/bible-api/bibles/en-kjv/books/job/chapters/32.json
 1556-roerer-ein-predig-von,Hiob am 1,Job 1,job,1,,https://cdn.jsdelivr.net/gh/wldeh/bible-api/bibles/en-kjv/books/job/chapters/1.json
 1556-roerer-ein-predig-von,Hiob 38,Job 38,job,38,,https://cdn.jsdelivr.net/gh/wldeh/bible-api/bibles/en-kjv/books/job/chapters/38.json

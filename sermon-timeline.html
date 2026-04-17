@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Little Ice Age — Sermon &amp; Weather Timeline</title>
+  <title>Little Ice Age — Sermons x Weather Correlation Timeline</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -259,7 +259,7 @@
 <header>
   <div style="display:flex;align-items:baseline;gap:12px">
     <h1>Little Ice Age</h1>
-    <span class="sub">Sermon &amp; Weather Events Timeline</span>
+    <span class="sub">Sermons x Weather Correlation Timeline</span>
   </div>
   <span class="pill" id="match-count"></span>
 </header>
@@ -327,9 +327,9 @@
 <div id="ev-tooltip"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="data.js"></script>
-<script src="weather_data.js"></script>
-<script src="phenomena_data.js"></script>
+<script src="sermon-data.js"></script>
+<script src="weather-data.js"></script>
+<script src="phenomena-data.js"></script>
 <script>
 // ── SVG Pictogram Library ─────────────────────────────────────────────────────
 function svg(paths) {
@@ -712,7 +712,7 @@ function buildSidebar() {
     .filter(s => matchWeather(s).length > 0);
 
   document.getElementById('match-count').textContent =
-    `${sorted.length} sermons with weather data`;
+    ``;
 
   sorted.forEach(s => {
     const events = matchWeather(s);

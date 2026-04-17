@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Traces of the Little Ice Age in Early Modern Literature</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black:  #111111;
+    --dark:   #1a1a1a;
+    --panel:  #161616;
+    --border: #2a2a2a;
+    --red:    #8b1a1a;
+    --red-lt: #b52222;
+    --grey1:  #888888;
+    --grey2:  #555555;
+    --text:   #cccccc;
+    --white:  #f0f0f0;
+  }
+
+  html, body {
+    min-height: 100vh;
+    font-family: Georgia, serif;
+    color: var(--text);
+  }
+
+  /* ── Full-bleed background ── */
+  body {
+    background: url('homepage.jpg') center center / cover no-repeat fixed;
+    background-color: var(--black);
+  }
+
+  /* Dark overlay so text boxes pop against the woodcut */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background: rgba(8, 0, 0, 0.52);
+    z-index: 0;
+  }
+
+  /* ── Page layout ── */
+  main {
+    position: relative; z-index: 1;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 4rem 2rem;
+    gap: 2rem;
+  }
+
+  /* ── Title box ── */
+  .title-box {
+    background: rgba(17, 17, 17, 0.93);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--red);
+    padding: 2.6rem 3.5rem;
+    text-align: center;
+    max-width: 740px; width: 100%;
+  }
+  .title-box h1 {
+    font-size: 1.55rem; font-weight: normal;
+    letter-spacing: .09em; text-transform: uppercase;
+    color: var(--white); line-height: 1.45;
+  }
+  .title-box .subtitle {
+    margin-top: 1rem;
+    font-size: .92rem; color: var(--grey1);
+    font-style: italic; letter-spacing: .03em;
+  }
+
+  /* ── Three cards ── */
+  .cards {
+    display: flex; gap: 1.1rem;
+    max-width: 880px; width: 100%;
+  }
+  .card {
+    flex: 1;
+    background: rgba(17, 17, 17, 0.93);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--red);
+    padding: 1.8rem 1.4rem 1.4rem;
+    text-decoration: none; color: var(--text);
+    display: flex; flex-direction: column; gap: .65rem;
+    transition: border-color .2s, background .2s;
+  }
+  .card:hover {
+    border-color: var(--red-lt);
+    background: rgba(26, 26, 26, 0.97);
+  }
+  .card .tag {
+    font-family: 'Courier New', monospace;
+    font-size: .68rem; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--red-lt);
+  }
+  .card h2 {
+    font-size: 1rem; font-weight: normal;
+    color: var(--white); letter-spacing: .04em;
+  }
+  .card p {
+    font-size: .83rem; color: var(--grey1);
+    line-height: 1.65; font-style: italic;
+    flex: 1;
+  }
+  .card .arrow {
+    margin-top: .6rem;
+    font-size: .78rem; color: var(--red-lt);
+    font-family: 'Courier New', monospace;
+    letter-spacing: .07em;
+  }
+
+  /* ── Credits ── */
+  .credits {
+    background: rgba(17, 17, 17, 0.88);
+    border: 1px solid var(--border);
+    padding: .65rem 1.6rem;
+    font-size: .76rem; color: var(--grey2);
+    letter-spacing: .04em; text-align: center;
+  }
+  .credits a {
+    color: var(--grey1); text-decoration: none;
+    border-bottom: 1px solid var(--grey2);
+    transition: color .15s, border-color .15s;
+  }
+  .credits a:hover { color: var(--red-lt); border-color: var(--red-lt); }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .cards { flex-direction: column; }
+    .title-box { padding: 1.8rem 1.4rem; }
+    .title-box h1 { font-size: 1.15rem; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <div class="title-box">
+    <h1>Traces of the Little Ice Age<br>in Early Modern Literature</h1>
+    <p class="subtitle">Hackathon challenge: modelling weather-related sermons</p>
+  </div>
+
+  <div class="cards">
+
+    <a class="card" href="sermon-generator.html">
+      <span class="tag">Tool</span>
+      <h2>Sermon Generator</h2>
+      <p>Chat-based tool for retrieving Bible passages relevant to weather phenomena, drawn from the sermon corpus.</p>
+      <span class="arrow">&#8594; Open</span>
+    </a>
+
+    <a class="card" href="sermon-timeline.html">
+      <span class="tag">Visualisation</span>
+      <h2>Sermon Timeline</h2>
+      <p>Interactive map and timeline correlating early modern sermons with historical weather events from Tambora.</p>
+      <span class="arrow">&#8594; Open</span>
+    </a>
+
+    <a class="card" href="sermon-network.html">
+      <span class="tag">Analysis</span>
+      <h2>Sermon Network</h2>
+      <p>Network graph of Bible citation co-occurrence across the sermon corpus, for distant-reading analysis.</p>
+      <span class="arrow">&#8594; Open</span>
+    </a>
+
+  </div>
+
+  <p class="credits">
+    Credits:&nbsp;
+    <a href="#" target="_blank">Project X</a>
+    &nbsp;&middot;&nbsp;
+    Person 2
+  </p>
+
+</main>
+</body>
+</html>

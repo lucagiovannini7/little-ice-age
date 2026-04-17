@@ -2,10 +2,10 @@
 """
 build_weather_data.py
 ---------------------
-Reads  metadata/weather-events.csv  (CITY, PERIOD, POSITION, CODING)
+Reads  metadata/weather-events.csv  (QUERY_CITY, DATE, LOCATION, EVENT_TYPE)
 Writes weather_data.js              (const WEATHER = [...])
 
-The 'year' field is a decimal year computed from PERIOD
+The 'year' field is a decimal year computed from DATE
 (YYYY, YYYY-MM, YYYY-MM-DD, or YYYY-MM-DD HH:MM all supported).
 """
 
@@ -17,11 +17,11 @@ INPUT_CSV = 'metadata/weather-events.csv'
 OUTPUT_JS = 'weather_data.js'
 
 
-def parse_year(period):
-    """Convert a PERIOD string to a decimal year (float)."""
-    if not period:
+def parse_year(date):
+    """Convert a DATE string to a decimal year (float)."""
+    if not date:
         return None
-    m = re.match(r'(\d{4})(?:-(\d{1,2})(?:-(\d{1,2}))?)?', period.strip())
+    m = re.match(r'(\d{4})(?:-(\d{1,2})(?:-(\d{1,2}))?)?', date.strip())
     if not m:
         return None
     y  = int(m.group(1))
@@ -33,17 +33,17 @@ def parse_year(period):
 rows = []
 with open(INPUT_CSV, encoding='utf-8', newline='') as fh:
     for row in csv.DictReader(fh):
-        city    = row['CITY'].strip()
-        period  = row['PERIOD'].strip()
-        pos     = row['POSITION'].strip()
-        coding  = row['CODING'].strip()
+        city    = row['QUERY_CITY'].strip()
+        period  = row['DATE'].strip()
+        pos     = row['LOCATION'].strip()
+        coding  = row['EVENT_TYPE'].strip()
         year    = parse_year(period)
         rows.append({
-            'city':     city,
-            'period':   period,
-            'position': pos,
-            'coding':   coding,
-            'year':     year,
+            'city':      city,
+            'period':    period,
+            'position':  pos,
+            'coding':    coding,
+            'year':      year,
         })
 
 with open(OUTPUT_JS, 'w', encoding='utf-8') as fh:
